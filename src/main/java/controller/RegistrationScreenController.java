@@ -84,6 +84,14 @@ public class RegistrationScreenController {
         String email = emailField.getText();
         String pass = passField.getText();
         String confirmPass = confirmPassField.getText();
+        if (userName.isEmpty() || email.isEmpty() || pass.isEmpty() || confirmPass.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Missing Information");
+            alert.setContentText("One or more fields are blank. Please fill in "
+                    + "all of the required fields before continuing.");
+            alert.showAndWait();
+            return;
+        }
         db.preparedStatement = db.conn.prepareStatement(
                 "SELECT * "
                         + "FROM `User` "
@@ -125,12 +133,21 @@ public class RegistrationScreenController {
                         + "?, ?, ?, ?"
                         + ")"
         );
-        db.preparedStatement.setString(1, userField.getText());
-        db.preparedStatement.setString(2, emailField.getText());
-        db.preparedStatement.setString(3, passField.getText());
+        db.preparedStatement.setString(1, userName);
+        db.preparedStatement.setString(2, email);
+        db.preparedStatement.setString(3, pass);
         db.preparedStatement.setString(4, typeBox.getValue().name());
         db.preparedStatement.executeUpdate();
         if (typeBox.getValue().equals(UserType.CITY_OFFICIAL)) {
+            if (cityBox.getValue().isEmpty() || stateBox.getValue().isEmpty() || titleField.getText().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Missing City Official Information");
+                alert.setContentText("One or more fields are blank. Please "
+                        + "fill in your State, City, and Title before "
+                        + "continuing.");
+                alert.showAndWait();
+                return;
+            }
             db.preparedStatement = db.conn.prepareStatement(
                     "INSERT INTO `City_Official` ("
                             + "`Username` ,"
@@ -148,7 +165,9 @@ public class RegistrationScreenController {
             db.preparedStatement.setString(3, cityBox.getValue());
             db.preparedStatement.setString(4, stateBox.getValue());
             db.preparedStatement.executeUpdate();
+            myApp.loadCityOfficialWelcome();
         }
+        myApp.loadCityScientistWelcome();
     }
 
     @FXML
