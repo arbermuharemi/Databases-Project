@@ -43,7 +43,22 @@ public class Main extends Application {
     }
 
     public void loadRegister() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("../view/RegistrationScreen.fxml"));
+            AnchorPane registrationLayout = loader.load();
 
+            RegistrationScreenController controller = loader.getController();
+            controller.setMainApp(this, db);
+
+            window.setTitle("Login Page");
+            Scene registrationScene = new Scene(registrationLayout);
+            window.setScene(registrationScene);
+            window.show();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 
