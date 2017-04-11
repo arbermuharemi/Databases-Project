@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class Main extends Application {
     private Stage window;
-    private DatabaseRef db;
+    private static DatabaseRef db;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -30,7 +30,7 @@ public class Main extends Application {
             AnchorPane welcomeLayout = loader.load();
 
             LoginScreenController controller = loader.getController();
-            controller.setMainApp(this, db);
+            controller.setMainApp(this);
 
             window.setTitle("Login Page");
             Scene welcomeScene = new Scene(welcomeLayout);
@@ -69,7 +69,7 @@ public class Main extends Application {
             AnchorPane adminLayout = loader.load();
 
             AdminWelcomeController controller = loader.getController();
-            controller.setMainApp(this, db);
+            controller.setMainApp(this);
 
             window.setTitle("Admin Home Page");
             Scene adminScene = new Scene(adminLayout);
@@ -87,6 +87,10 @@ public class Main extends Application {
 
     public void loadCityScientistWelcome() {
 
+    }
+
+    public static DatabaseRef getDb() {
+        return db;
     }
 
         //if(!conn.isClosed())

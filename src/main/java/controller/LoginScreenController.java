@@ -25,9 +25,9 @@ public class LoginScreenController {
     @FXML
     private PasswordField passField;
 
-    public void setMainApp(Main mainApp, DatabaseRef db) {
+    public void setMainApp(Main mainApp) {
         myApp = mainApp;
-        this.db = db;
+        this.db = Main.getDb();
     }
 
     @FXML

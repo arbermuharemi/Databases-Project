@@ -10,9 +10,9 @@ public class AdminWelcomeController {
     private Main myApp;
     private DatabaseRef db;
 
-    public void setMainApp(Main mainApp, DatabaseRef db) {
+    public void setMainApp(Main mainApp) {
         myApp = mainApp;
-        this.db = db;
+        this.db = Main.getDb();
     }
 
 }

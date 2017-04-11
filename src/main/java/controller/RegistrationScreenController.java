@@ -11,6 +11,8 @@ import javafx.scene.control.TextField;
 import main.java.model.DatabaseRef;
 import main.java.model.UserType;
 
+import java.util.ArrayList;
+
 /**
  * Created by Yash on 9/28/2016.
  * This class's purpose is to: <DESCRIBE PURPOSE>
@@ -45,23 +47,34 @@ public class RegistrationScreenController {
     private TextField titleField;
 
     private ObservableList<UserType> typeList = FXCollections.observableArrayList(UserType.CITY_SCIENTIST, UserType.CITY_OFFICIAL);
-    private ObservableList<String> stateArrayList;
+    private ArrayList<String> states;
     private ObservableList<String> stateList;
-    private ObservableList<String> cityArrayList;
+    private ArrayList<String> cities;
     private ObservableList<String> cityList;
 
     @FXML
     private void initialize() throws Exception {
         typeBox.setItems(typeList);
         typeBox.setValue(UserType.CITY_SCIENTIST);
+        this.db = Main.getDb();
         db.rs = db.stmt.executeQuery(
                 "SELECT * "
                         + "FROM `City_State`");
+        states = new ArrayList<>();
+        cities = new ArrayList<>();
+        db.rs.beforeFirst();
+        while (db.rs.next()) {
+            states.add(db.rs.getString("State"));
+            cities.add(db.rs.getString("City"));
+        }
+        stateList = FXCollections.observableList(states);
+        cityList = FXCollections.observableList(cities);
+        stateBox.setItems(stateList);
     }
 
     public void setMainApp(Main mainApp, DatabaseRef db) {
         myApp = mainApp;
-        this.db = db;
+        //this.db = db;
     }
 
 
@@ -143,14 +156,24 @@ public class RegistrationScreenController {
         myApp.loadLogin();
     }
 
-    //@FXML
-    //private void changeLayout() {
-    //    if (typeBox.getValue().equals(UserType.CITY_SCIENTIST)) {
-    //
-    //    } else {
-    //
-    //    }
-    //}
+    @FXML
+    private void changeCities() throws Exception {
+        cities.clear();
+        cityList.clear();
+        //System.out.println("once");
+        db.preparedStatement = db.conn.prepareStatement(
+                "SELECT City FROM City_State WHERE State = ?");
+        db.preparedStatement.setString(1, stateBox.getValue());
+        System.out.println(db.preparedStatement);
+        db.rs = db.preparedStatement.executeQuery();
+        db.rs.beforeFirst();
+        while (db.rs.next()) {
+            cities.add(db.rs.getString("City"));
+            //System.out.println(db.rs.getString("City"));
+        }
+        cityList = FXCollections.observableList(cities);
+        cityBox.setItems(cityList);
+    }
 
 
 }

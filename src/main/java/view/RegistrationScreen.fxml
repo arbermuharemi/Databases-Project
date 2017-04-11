@@ -56,7 +56,7 @@
         <Button onAction="#handleRegisterSubmitPressed" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="10" />
         <Label prefWidth="374.0" text="Fill out this form if you chose City Official:" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
         <Label text="State:" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
-        <ComboBox fx:id="stateBox" prefWidth="150.0" GridPane.halignment="LEFT" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <ComboBox fx:id="stateBox" onAction="#changeCities" prefWidth="150.0" GridPane.halignment="LEFT" GridPane.columnIndex="1" GridPane.rowIndex="7" />
         <Label text="City:" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
         <ComboBox fx:id="cityBox" prefWidth="150.0" GridPane.halignment="LEFT" GridPane.columnIndex="1" GridPane.rowIndex="8" />
         <Label text="Title:" GridPane.halignment="RIGHT" GridPane.rowIndex="9" />
