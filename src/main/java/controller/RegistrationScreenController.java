@@ -58,13 +58,23 @@ public class RegistrationScreenController {
         typeBox.setValue(UserType.CITY_SCIENTIST);
         this.db = Main.getDb();
         db.rs = db.stmt.executeQuery(
-                "SELECT * "
-                        + "FROM `City_State`");
+                "SELECT DISTINCT State "
+                        + "FROM `City_State`"
+                        + "ORDER BY State ");
         states = new ArrayList<>();
-        cities = new ArrayList<>();
         db.rs.beforeFirst();
         while (db.rs.next()) {
             states.add(db.rs.getString("State"));
+            //cities.add(db.rs.getString("City"));
+        }
+        cities = new ArrayList<>();
+        db.rs.beforeFirst();
+        db.rs = db.stmt.executeQuery(
+                "SELECT City "
+                        + "FROM `City_State`"
+                        + "ORDER BY City ");
+        while (db.rs.next()) {
+            //states.add(db.rs.getString("State"));
             cities.add(db.rs.getString("City"));
         }
         stateList = FXCollections.observableList(states);
@@ -181,7 +191,10 @@ public class RegistrationScreenController {
         cityList.clear();
         //System.out.println("once");
         db.preparedStatement = db.conn.prepareStatement(
-                "SELECT City FROM City_State WHERE State = ?");
+                "SELECT City "
+                        + "FROM City_State "
+                        + "WHERE State = ?"
+                        + "ORDER BY City");
         db.preparedStatement.setString(1, stateBox.getValue());
         System.out.println(db.preparedStatement);
         db.rs = db.preparedStatement.executeQuery();
