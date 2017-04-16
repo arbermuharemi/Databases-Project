@@ -25,11 +25,6 @@ public class LoginScreenController extends Controller {
     @FXML
     private PasswordField passField;
 
-    /*public void setMainApp(Main mainApp) {
-        myApp = mainApp;
-        this.db = Main.getDb();
-    }*/
-
     @FXML
     private void handleLoginPressed() throws Exception {
         System.out.println(db);

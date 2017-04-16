@@ -8,11 +8,9 @@ import main.java.model.DatabaseRef;
 import java.io.File;
 
 /**
- * Created by Arber on 4/10/2017.
- * This class's purpose is to: <DESCRIBE PURPOSE>
+ * Created by Ashwin Ignatius on 4/15/2017.
  */
-public class AdminHomeController extends Controller {
-
+public class CityOfficialHomeController extends Controller{
     private void handleLogOutPressed() {
         myApp.load(new File("..view/LoginScreen.fxml"));
     }

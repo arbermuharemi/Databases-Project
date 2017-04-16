@@ -31,13 +31,13 @@ public class Main extends Application {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("../view/" + file.getName()));
-            AnchorPane welcomeLayout = loader.load();
+            AnchorPane sceneLayout = loader.load();
 
             Controller controller = loader.getController();
             controller.setMainApp(this);
 
             window.setTitle("Databases-Project");
-            window.setScene(new Scene(welcomeLayout));
+            window.setScene(new Scene(sceneLayout));
             window.show();
         } catch (IOException e) {
             System.out.println(e.getMessage());
