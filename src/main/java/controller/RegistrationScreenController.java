@@ -8,19 +8,18 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import main.java.fxapp.Main;
 import main.java.model.DatabaseRef;
 import main.java.model.UserType;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
- * Created by Yash on 9/28/2016.
+ * Created by Arber on 4/10/2017.
  * This class's purpose is to: <DESCRIBE PURPOSE>
  */
-public class RegistrationScreenController {
-
-    private Main myApp;
-    private DatabaseRef db;
+public class RegistrationScreenController extends Controller {
 
     @FXML
     private TextField userField;
@@ -81,12 +80,6 @@ public class RegistrationScreenController {
         cityList = FXCollections.observableList(cities);
         stateBox.setItems(stateList);
     }
-
-    public void setMainApp(Main mainApp, DatabaseRef db) {
-        myApp = mainApp;
-        //this.db = db;
-    }
-
 
     @FXML
     private void handleRegisterSubmitPressed() throws Exception {
@@ -182,7 +175,7 @@ public class RegistrationScreenController {
 
     @FXML
     private void handleCancelPressed() {
-        myApp.loadLogin();
+        myApp.load(new File("..view/LoginScreen.fxml"));
     }
 
     @FXML

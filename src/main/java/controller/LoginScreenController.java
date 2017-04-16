@@ -11,13 +11,13 @@ import javafx.scene.layout.BorderPane;
 import main.java.model.DatabaseRef;
 import main.java.model.UserType;
 
+import java.io.File;
+
 /**
  * Created by Arber on 4/10/2017.
  * This class's purpose is to: <DESCRIBE PURPOSE>
  */
-public class LoginScreenController {
-    private Main myApp;
-    private DatabaseRef db;
+public class LoginScreenController extends Controller {
 
     @FXML
     private TextField userField;
@@ -25,10 +25,10 @@ public class LoginScreenController {
     @FXML
     private PasswordField passField;
 
-    public void setMainApp(Main mainApp) {
+    /*public void setMainApp(Main mainApp) {
         myApp = mainApp;
         this.db = Main.getDb();
-    }
+    }*/
 
     @FXML
     private void handleLoginPressed() throws Exception {
@@ -49,7 +49,7 @@ public class LoginScreenController {
         }
         UserType userType = UserType.valueOf(db.rs.getString("UserType"));
         if (userType.equals(UserType.ADMIN)) {
-            myApp.loadAdminWelcome();
+            myApp.load(new File("..view/AdminHome.fxml"));
         } else if (userType.equals(UserType.CITY_OFFICIAL)) {
             db.preparedStatement = db.conn.prepareStatement("SELECT Approved FROM City_Official WHERE Username = ?");
             db.preparedStatement.setString(1, userField.getText());
@@ -69,7 +69,7 @@ public class LoginScreenController {
 
     @FXML
     private void handleRegisterPressed() {
-        myApp.loadRegister();
+        myApp.load(new File("..view/RegistrationScreen.fxml"));
     }
 }
 

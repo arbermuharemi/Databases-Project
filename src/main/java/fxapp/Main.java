@@ -1,4 +1,4 @@
-package main.java.controller;
+package main.java.fxapp;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -6,9 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.ir.IfNode;
+import main.java.controller.Controller;
 import main.java.model.DatabaseRef;
 
+import java.io.File;
 import java.io.IOException;
+import java.lang.Character;
 
 
 public class Main extends Application {
@@ -20,64 +24,23 @@ public class Main extends Application {
         db = new DatabaseRef();
         db.connect();
         window = primaryStage;
-        loadLogin();
+        load(new File("..view/LoginScreen.fxml"));
     }
 
-    public void loadLogin() {
+    public void load(File file) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../view/LoginScreen.fxml"));
+            loader.setLocation(Main.class.getResource("../view/" + file.getName()));
             AnchorPane welcomeLayout = loader.load();
 
-            LoginScreenController controller = loader.getController();
+            Controller controller = loader.getController();
             controller.setMainApp(this);
 
-            window.setTitle("Login Page");
-            Scene welcomeScene = new Scene(welcomeLayout);
-            window.setScene(welcomeScene);
+            window.setTitle("Databases-Project");
+            window.setScene(new Scene(welcomeLayout));
             window.show();
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    public void loadRegister() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../view/RegistrationScreen.fxml"));
-            AnchorPane registrationLayout = loader.load();
-
-            RegistrationScreenController controller = loader.getController();
-            controller.setMainApp(this, db);
-
-            window.setTitle("Login Page");
-            Scene registrationScene = new Scene(registrationLayout);
-            window.setScene(registrationScene);
-            window.show();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-
-    public void loadAdminWelcome() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../view/AdminWelcome.fxml"));
-            AnchorPane adminLayout = loader.load();
-
-            AdminWelcomeController controller = loader.getController();
-            controller.setMainApp(this);
-
-            window.setTitle("Admin Home Page");
-            Scene adminScene = new Scene(adminLayout);
-            window.setScene(adminScene);
-            window.show();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
 
