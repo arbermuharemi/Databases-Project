@@ -11,11 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="315.0" prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/8.0.66"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="main.java.controller.LoginScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="315.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.LoginScreenController">
     <GridPane prefHeight="214.0" prefWidth="600.0">
         <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="100.0" />
@@ -40,8 +36,8 @@
 
       <ButtonBar GridPane.columnIndex="1" GridPane.rowIndex="3">
           <buttons>
-              <Button fx:id="loginButton" onAction="#handleLoginPressed" alignment="CENTER" text="Log in" defaultButton="true"/>
-              <Button fx:id="registerButton" onAction="#handleRegisterPressed" alignment="CENTER" text="Register" />
+              <Button fx:id="loginButton" alignment="CENTER" defaultButton="true" onAction="#handleLoginPressed" text="Log In" />
+              <Button fx:id="registerButton" alignment="CENTER" onAction="#handleRegisterPressed" text="Register" />
           </buttons>
       </ButtonBar>
     </GridPane>
