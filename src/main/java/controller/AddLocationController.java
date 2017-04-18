@@ -1,7 +1,7 @@
 package main.java.controller;
 
 /**
- * Created by Ashwin Ignatius on 4/17/2017.
+ * Created by Ashwin Ignatius on 4/18/2017.
  */
 
 import javafx.collections.FXCollections;
@@ -13,23 +13,22 @@ import main.java.model.DatabaseRef;
 import main.java.model.UserType;
 import java.io.File;
 
-public class AddDataPointController extends Controller {
+public class AddLocationController extends Controller {
 
     @FXML
-    private ComboBox locName;
+    private TextField locName;
 
     @FXML
-    private DatePicker dateTime;
+    private ComboBox city;
 
     @FXML
-    private ComboBox dataType;
+    private ComboBox state;
 
     @FXML
-    private TextField dataValue;
-
+    private TextField zipcode;
 
     @FXML
-    public void handleHyperlinkClicked() {
-        myApp.load(new File("..view/AddLocation.fxml"));
+    public void handleBackClicked() {
+        myApp.load(new File("..view/AddDataPoint.fxml"));
     }
 }

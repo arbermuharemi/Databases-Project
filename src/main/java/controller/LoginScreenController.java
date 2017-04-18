@@ -58,7 +58,7 @@ public class LoginScreenController extends Controller {
             }
             myApp.loadCityOfficialWelcome();
         } else if (userType.equals(UserType.CITY_SCIENTIST)) {
-            myApp.loadCityScientistWelcome();
+            myApp.load(new File("..view/AddDataPoint.fxml"));
         }
     }
 
