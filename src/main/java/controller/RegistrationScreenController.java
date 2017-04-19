@@ -9,7 +9,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import main.java.fxapp.Main;
-import main.java.model.DatabaseRef;
 import main.java.model.UserType;
 
 import java.io.File;
@@ -64,7 +63,6 @@ public class RegistrationScreenController extends Controller {
         db.rs.beforeFirst();
         while (db.rs.next()) {
             states.add(db.rs.getString("State"));
-            //cities.add(db.rs.getString("City"));
         }
         cities = new ArrayList<>();
         db.rs.beforeFirst();
@@ -73,7 +71,6 @@ public class RegistrationScreenController extends Controller {
                         + "FROM `City_State`"
                         + "ORDER BY City ");
         while (db.rs.next()) {
-            //states.add(db.rs.getString("State"));
             cities.add(db.rs.getString("City"));
         }
         stateList = FXCollections.observableList(states);
@@ -180,7 +177,6 @@ public class RegistrationScreenController extends Controller {
     private void changeCities() throws Exception {
         cities.clear();
         cityList.clear();
-        //System.out.println("once");
         db.preparedStatement = db.conn.prepareStatement(
                 "SELECT City "
                         + "FROM City_State "
@@ -192,7 +188,6 @@ public class RegistrationScreenController extends Controller {
         db.rs.beforeFirst();
         while (db.rs.next()) {
             cities.add(db.rs.getString("City"));
-            //System.out.println(db.rs.getString("City"));
         }
         cityList = FXCollections.observableList(cities);
         cityBox.setItems(cityList);
