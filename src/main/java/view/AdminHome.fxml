@@ -33,7 +33,7 @@
                   <Font name="Gill Sans MT" size="36.0" />
                </font>
             </Hyperlink>
-            <Hyperlink alignment="CENTER" prefHeight="66.0" prefWidth="500.0" text="Pending City Official Accounts" textFill="#0978ea" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Hyperlink alignment="CENTER" prefHeight="66.0" prefWidth="500.0" text="Pending City Official Accounts" onAction="#handlePendingCityOfficialPressed" textFill="#0978ea" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="Gill Sans MT" size="36.0" />
                </font></Hyperlink>

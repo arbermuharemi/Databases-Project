@@ -17,4 +17,9 @@ public class AdminHomeController extends Controller {
     private void handleLogOutPressed() {
         myApp.load(new File("../view/LoginScreen.fxml"));
     }
+
+    @FXML
+    public void handlePendingCityOfficialPressed() {
+        myApp.load(new File("../view/PendingCityOfficialScreen.fxml"));
+    }
 }
