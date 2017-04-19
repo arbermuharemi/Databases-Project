@@ -60,6 +60,6 @@
         <Label text="City:" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
         <ComboBox fx:id="cityBox" prefWidth="150.0" GridPane.halignment="LEFT" GridPane.columnIndex="1" GridPane.rowIndex="8" />
         <Label text="Title:" GridPane.halignment="RIGHT" GridPane.rowIndex="9" />
-        <TextField GridPane.columnIndex="1" GridPane.rowIndex="9" />
+        <TextField fx:id="titleField" GridPane.columnIndex="1" GridPane.rowIndex="9" />
     </GridPane>
 </AnchorPane>

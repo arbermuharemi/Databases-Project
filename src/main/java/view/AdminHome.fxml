@@ -28,12 +28,12 @@
                <font>
                   <Font name="Gill Sans MT Bold" size="48.0" />
                </font></Label>
-            <Hyperlink alignment="CENTER" contentDisplay="TOP" prefHeight="62.0" prefWidth="500.0" text="Pending Data Points" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Hyperlink alignment="CENTER" contentDisplay="TOP" prefHeight="62.0" prefWidth="500.0" text="Pending Data Points" textFill="#0978ea" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="Gill Sans MT" size="36.0" />
                </font>
             </Hyperlink>
-            <Hyperlink alignment="CENTER" prefHeight="66.0" prefWidth="500.0" text="Pending City Official Accounts" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Hyperlink alignment="CENTER" prefHeight="66.0" prefWidth="500.0" text="Pending City Official Accounts" textFill="#0978ea" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="Gill Sans MT" size="36.0" />
                </font></Hyperlink>
