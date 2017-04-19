@@ -168,14 +168,14 @@ public class RegistrationScreenController extends Controller {
             db.preparedStatement.setString(3, cityBox.getValue());
             db.preparedStatement.setString(4, stateBox.getValue());
             db.preparedStatement.executeUpdate();
-            myApp.loadCityOfficialWelcome();
+            myApp.load(new File("../view/CityOfficialHome.fxml"));;
         }
-        myApp.loadCityScientistWelcome();
+        myApp.load(new File("../view/AddDataPoint.fxml"));
     }
 
     @FXML
     private void handleCancelPressed() {
-        myApp.load(new File("..view/LoginScreen.fxml"));
+        myApp.load(new File("../view/LoginScreen.fxml"));
     }
 
     @FXML

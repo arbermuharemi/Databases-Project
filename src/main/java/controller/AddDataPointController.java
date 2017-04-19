@@ -30,6 +30,6 @@ public class AddDataPointController extends Controller {
 
     @FXML
     public void handleHyperlinkClicked() {
-        myApp.load(new File("..view/AddLocation.fxml"));
+        myApp.load(new File("../view/AddLocation.fxml"));
     }
 }

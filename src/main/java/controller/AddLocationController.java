@@ -29,6 +29,6 @@ public class AddLocationController extends Controller {
 
     @FXML
     public void handleBackClicked() {
-        myApp.load(new File("..view/AddDataPoint.fxml"));
+        myApp.load(new File("../view/AddDataPoint.fxml"));
     }
 }

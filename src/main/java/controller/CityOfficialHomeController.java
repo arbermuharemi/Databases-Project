@@ -11,7 +11,9 @@ import java.io.File;
  * Created by Ashwin Ignatius on 4/15/2017.
  */
 public class CityOfficialHomeController extends Controller{
+
+    @FXML
     private void handleLogOutPressed() {
-        myApp.load(new File("..view/LoginScreen.fxml"));
+        myApp.load(new File("../view/LoginScreen.fxml"));
     }
 }

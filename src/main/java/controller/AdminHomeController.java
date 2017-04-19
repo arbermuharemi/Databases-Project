@@ -13,7 +13,8 @@ import java.io.File;
  */
 public class AdminHomeController extends Controller {
 
+    @FXML
     private void handleLogOutPressed() {
-        myApp.load(new File("..view/LoginScreen.fxml"));
+        myApp.load(new File("../view/LoginScreen.fxml"));
     }
 }

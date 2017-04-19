@@ -44,7 +44,7 @@ public class LoginScreenController extends Controller {
         }
         UserType userType = UserType.valueOf(db.rs.getString("UserType"));
         if (userType.equals(UserType.ADMIN)) {
-            myApp.load(new File("..view/AdminHome.fxml"));
+            myApp.load(new File("../view/AdminHome.fxml"));
         } else if (userType.equals(UserType.CITY_OFFICIAL)) {
             db.preparedStatement = db.conn.prepareStatement("SELECT Approved FROM City_Official WHERE Username = ?");
             db.preparedStatement.setString(1, userField.getText());
@@ -56,15 +56,15 @@ public class LoginScreenController extends Controller {
                 alert.setContentText("Your account has not been approved yet. Please contact an administrator to approve your account");
                 alert.showAndWait();
             }
-            myApp.loadCityOfficialWelcome();
+            myApp.load(new File("../view/CityOfficialHome.fxml"));
         } else if (userType.equals(UserType.CITY_SCIENTIST)) {
-            myApp.load(new File("..view/AddDataPoint.fxml"));
+            myApp.load(new File("../view/AddDataPoint.fxml"));
         }
     }
 
     @FXML
     private void handleRegisterPressed() {
-        myApp.load(new File("..view/RegistrationScreen.fxml"));
+        myApp.load(new File("../view/RegistrationScreen.fxml"));
     }
 }
 

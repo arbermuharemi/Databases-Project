@@ -24,7 +24,7 @@ public class Main extends Application {
         db = new DatabaseRef();
         db.connect();
         window = primaryStage;
-        load(new File("..view/LoginScreen.fxml"));
+        load(new File("../view/LoginScreen.fxml"));
     }
 
     public void load(File file) {
@@ -43,15 +43,7 @@ public class Main extends Application {
             System.out.println(e.getMessage());
         }
     }
-
-    public void loadCityOfficialWelcome() {
-
-    }
-
-    public void loadCityScientistWelcome() {
-
-    }
-
+    
     public static DatabaseRef getDb() {
         return db;
     }
