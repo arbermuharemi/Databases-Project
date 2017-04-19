@@ -98,10 +98,8 @@ public class RegistrationScreenController extends Controller {
         db.preparedStatement = db.conn.prepareStatement(
                 "SELECT * "
                         + "FROM `User` "
-                        + "WHERE Username = ? "
-                        + "AND Password = ?");
+                        + "WHERE Username = ? ");
         db.preparedStatement.setString(1, userField.getText());
-        db.preparedStatement.setString(2, passField.getText());
         System.out.println(db.preparedStatement);
         db.rs = db.preparedStatement.executeQuery();
         if (db.rs.first()) {
