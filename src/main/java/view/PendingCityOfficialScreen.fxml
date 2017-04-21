@@ -11,12 +11,12 @@
    <children>
       <TableView fx:id="table" layoutX="20.0" layoutY="65.0" prefHeight="200.0" prefWidth="557.0">
         <columns>
-            <TableColumn prefWidth="57.0" text="Select" />
-            <TableColumn maxWidth="127.0" minWidth="100.0" prefWidth="109.0" resizable="false" text="Username" />
-            <TableColumn maxWidth="142.0" minWidth="100.0" prefWidth="142.0" text="Email" />
-            <TableColumn prefWidth="93.0" text="City" />
-            <TableColumn prefWidth="54.0" text="State" />
-            <TableColumn prefWidth="101.0" text="Title" />
+            <TableColumn editable="false" prefWidth="57.0" sortable="false" text="Select" />
+            <TableColumn editable="false" maxWidth="127.0" minWidth="100.0" prefWidth="109.0" resizable="false" sortable="false" text="Username" />
+            <TableColumn editable="false" maxWidth="142.0" minWidth="100.0" prefWidth="142.0" sortable="false" text="Email" />
+            <TableColumn editable="false" prefWidth="93.0" sortable="false" text="City" />
+            <TableColumn editable="false" prefWidth="54.0" sortable="false" text="State" />
+            <TableColumn editable="false" prefWidth="101.0" sortable="false" text="Title" />
         </columns>
       </TableView>
       <Label layoutX="92.0" layoutY="14.0" text="Pending City Official Accounts" textFill="#b4b93c">
