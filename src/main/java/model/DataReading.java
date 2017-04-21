@@ -2,7 +2,7 @@ package main.java.model;
 import java.util.Date;
 
 
-class dataReading {
+class DataReading {
 
     private Type dataType;
     private int dataValue;
