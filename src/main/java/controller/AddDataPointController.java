@@ -29,11 +29,6 @@ public class AddDataPointController extends Controller {
     private TextField dataValue;
 
     @FXML
-
-    public void handleBackPressed() {
-        myApp.load(new File("../view/AddLocation.fxml"));
-    }
-
     private ComboBox Hours;
 
     @FXML
@@ -61,6 +56,11 @@ public class AddDataPointController extends Controller {
         for (int i = 0; i < 60; i++) {
             minutesList.add(String.format("%02d", i));
         }
+    }
+
+    @FXML
+    public void handleBackPressed() {
+        myApp.load(new File("../view/AddLocation.fxml"));
     }
 
     @FXML
