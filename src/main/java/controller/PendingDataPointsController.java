@@ -1,5 +1,6 @@
 package main.java.controller;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -18,7 +19,7 @@ import main.java.model.Type;
  */
 public class PendingDataPointsController extends Controller {
 
-    /*@FXML
+    @FXML
     private TableView<DataPoint> table;
 
     private ObservableList<DataPoint> data;
@@ -27,6 +28,7 @@ public class PendingDataPointsController extends Controller {
         this.db = Main.getDb();
         db.rs = db.stmt.executeQuery("SELECT * FROM `Data_Point`");
         db.rs.beforeFirst();
+        data = FXCollections.observableArrayList();
         while (db.rs.next()) {
             DataPoint myPoint = new DataPoint();
             myPoint.setAccepted(db.rs.getBoolean("Accepted"));
@@ -52,5 +54,5 @@ public class PendingDataPointsController extends Controller {
     @FXML
     public void handleAcceptPressed() {
 
-    }*/
+    }
 }
