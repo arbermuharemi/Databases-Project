@@ -27,6 +27,10 @@ public class AddDataPointController extends Controller {
     @FXML
     private TextField dataValue;
 
+    @FXML
+    public void handleBackPressed() {
+        myApp.load(new File("../view/AddLocation.fxml"));
+    }
 
     @FXML
     public void handleHyperlinkClicked() {

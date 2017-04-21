@@ -64,7 +64,7 @@
                </buttons></ButtonBar>
             <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="4">
               <buttons>
-                <Button mnemonicParsing="false" text="Back" />
+                <Button onAction="#handleBackPressed" mnemonicParsing="false" text="Back" />
               </buttons>
             </ButtonBar>
          </children>
