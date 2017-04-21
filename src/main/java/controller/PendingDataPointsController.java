@@ -18,7 +18,7 @@ import main.java.model.Type;
  */
 public class PendingDataPointsController extends Controller {
 
-    /*@FXML
+    @FXML
     private TableView<DataPoint> table;
 
     private ObservableList<DataPoint> data;
@@ -52,5 +52,5 @@ public class PendingDataPointsController extends Controller {
     @FXML
     public void handleAcceptPressed() {
 
-    }*/
+    }
 }

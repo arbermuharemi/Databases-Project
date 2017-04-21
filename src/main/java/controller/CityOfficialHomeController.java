@@ -13,8 +13,9 @@ import java.io.File;
 public class CityOfficialHomeController extends Controller{
 
     @FXML
-    public void handleLogOutPressed() {
-        myApp.load(new File("../view/LoginScreen.fxml"));
-    }
+    public void handleLogOutPressed() {myApp.load(new File("../view/LoginScreen.fxml")); }
+
+    @FXML
+    public void hangleFilterClicker() {myApp.load(new File("../view/ViewPOIScreen.fxml")); }
 
 }
