@@ -16,7 +16,7 @@ import java.sql.SQLException;
  */
 public class PendingDataPointsController extends Controller {
 
-    @FXML
+    /*@FXML
     private TableView<DataPoint> table;
 
     private ObservableList<TableColumn> myCols;
@@ -44,5 +44,5 @@ public class PendingDataPointsController extends Controller {
     @FXML
     public void handleAcceptPressed() {
 
-    }
+    }*/
 }
