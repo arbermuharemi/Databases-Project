@@ -22,4 +22,9 @@ public class AdminHomeController extends Controller {
     public void handlePendingCityOfficialPressed() {
         myApp.load(new File("../view/PendingCityOfficialScreen.fxml"));
     }
+
+    @FXML
+    public void handlePendingDataPointsPressed()  {
+        myApp.load(new File("../view/PendingDataPoints.fxml"));
+    }
 }
