@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.PendingCityOfficialsController">
    <children>
@@ -18,9 +19,12 @@
             <TableColumn prefWidth="101.0" text="Title" />
         </columns>
       </TableView>
-      <Label layoutX="219.0" layoutY="30.0" text="Pending City Official Accounts" />
-      <Button fx:id="Back" onAction="#handleBackPressed" layoutX="103.0" layoutY="330.0" mnemonicParsing="false" text="Back" />
-      <Button fx:id="Accept" onAction="#handleAcceptPressed" layoutX="273.0" layoutY="330.0" mnemonicParsing="false" text="Accept" />
-      <Button fx:id="Reject" onAction="#handleRejectPressed" layoutX="452.0" layoutY="330.0" mnemonicParsing="false" text="Reject" />
+      <Label layoutX="92.0" layoutY="14.0" text="Pending City Official Accounts" textFill="#b4b93c">
+         <font>
+            <Font name="Gill Sans MT Bold" size="29.0" />
+         </font></Label>
+      <Button fx:id="Back" layoutX="103.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleBackPressed" text="Back" />
+      <Button fx:id="Accept" layoutX="273.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleAcceptPressed" text="Accept" />
+      <Button fx:id="Reject" layoutX="452.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleRejectPressed" text="Reject" />
    </children>
 </AnchorPane>
