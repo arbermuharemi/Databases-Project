@@ -10,6 +10,8 @@ import main.java.model.DatabaseRef;
 
 import java.io.File;
 import java.sql.SQLException;
+import main.java.model.DataPoint;
+import main.java.model.Type;
 
 /**
  * Created by Ashwin Ignatius on 4/21/2017.
@@ -19,16 +21,22 @@ public class PendingDataPointsController extends Controller {
     @FXML
     private TableView<DataPoint> table;
 
-    private ObservableList<TableColumn> myCols;
+    private ObservableList<DataPoint> data;
 
-    @Override
     public void initialize() throws SQLException {
         this.db = Main.getDb();
         db.rs = db.stmt.executeQuery("SELECT * FROM `Data_Point`");
-        myCols = table.getColumns();
-        table.getR
-
-        for (int i = 0; i < )
+        db.rs.beforeFirst();
+        while (db.rs.next()) {
+            DataPoint myPoint = new DataPoint();
+            myPoint.setAccepted(db.rs.getBoolean("Accepted"));
+            myPoint.setDataValue(db.rs.getInt("DataValue"));
+            myPoint.setMyDate(db.rs.getDate("DateTime"));
+            myPoint.setPointType(Type.valueOf(db.rs.getString("Type")));
+            myPoint.setLocationName(db.rs.getString("LocationName"));
+            data.add(myPoint);
+        }
+        table.setItems(data);
     }
 
     @FXML
