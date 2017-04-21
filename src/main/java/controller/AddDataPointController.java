@@ -12,6 +12,7 @@ import main.java.fxapp.Main;
 import main.java.model.DatabaseRef;
 import main.java.model.UserType;
 import java.io.File;
+import java.util.ArrayList;
 
 public class AddDataPointController extends Controller {
 
@@ -28,12 +29,47 @@ public class AddDataPointController extends Controller {
     private TextField dataValue;
 
     @FXML
+
     public void handleBackPressed() {
         myApp.load(new File("../view/AddLocation.fxml"));
+    }
+
+    private ComboBox Hours;
+
+    @FXML
+    private ComboBox Minutes;
+
+    private ObservableList<String> hoursList = FXCollections.observableArrayList();
+
+    private ObservableList<String> minutesList = FXCollections.observableArrayList();
+
+    @FXML
+    private void initialize() {
+        makeHoursList();
+        makeminutesList();
+        Hours.setItems(hoursList);
+        Minutes.setItems(minutesList);
+    }
+
+    private void makeHoursList() {
+        for (int i = 0; i < 24; i++) {
+            hoursList.add(String.format("%02d", i));
+        }
+    }
+
+    private void makeminutesList() {
+        for (int i = 0; i < 60; i++) {
+            minutesList.add(String.format("%02d", i));
+        }
     }
 
     @FXML
     public void handleHyperlinkClicked() {
         myApp.load(new File("../view/AddLocation.fxml"));
+    }
+
+    @FXML
+    public void handleLogoutPressed()  {
+        myApp.load(new File("../view/LoginScreen.fxml"));
     }
 }
