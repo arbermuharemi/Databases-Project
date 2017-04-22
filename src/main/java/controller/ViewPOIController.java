@@ -227,7 +227,7 @@ public class ViewPOIController extends Controller{
             }
             query += "State ='" + stateData + "'";
         }
-        if (isFlagged || !isFlagged) {
+        if (isFlagged) {
             if (baseChecker(query)) {
                 query += "WHERE ";
             } else {
