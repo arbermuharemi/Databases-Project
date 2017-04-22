@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
@@ -26,8 +27,6 @@ public class PendingCityOfficialsController extends Controller {
     @FXML
     private TableView<CityOfficial> table;
 
-    private TableColumn checkBoxCol;
-
     private TableColumn usernameCol;
 
     private TableColumn emailCol;
@@ -42,27 +41,14 @@ public class PendingCityOfficialsController extends Controller {
 
     public void initialize() throws SQLException {
         this.db = Main.getDb();
-        checkBoxCol = new TableColumn("Select");
+        table.getSelectionModel().setSelectionMode(
+                SelectionMode.MULTIPLE
+        );
         usernameCol = new TableColumn("Username");
         emailCol = new TableColumn("Email");
         cityCol = new TableColumn("City");
         stateCol = new TableColumn("State");
         titleCol = new TableColumn("Title");
-
-        checkBoxCol.setStyle("-fx-alignment: CENTER;");
-        checkBoxCol.setEditable(true);
-
-        checkBoxCol.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
-                    @Override
-                    public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
-                        CheckBox checkBox = new CheckBox();
-                        return new SimpleObjectProperty<CheckBox>(checkBox);
-                    }
-                }
-        );
-        checkBoxCol.setStyle("-fx-alignment: CENTER;");
-        checkBoxCol.setEditable(true);
 
         usernameCol.setCellValueFactory(
                 new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
@@ -132,7 +118,7 @@ public class PendingCityOfficialsController extends Controller {
         }
 
         table.setItems(data);
-        table.getColumns().addAll(checkBoxCol, usernameCol, emailCol,
+        table.getColumns().addAll(usernameCol, emailCol,
                 cityCol, stateCol, titleCol);
     }
 
@@ -148,9 +134,8 @@ public class PendingCityOfficialsController extends Controller {
 
     @FXML
     public void handleAcceptPressed() {
-        for (CityOfficial o: table.getItems()) {
-            checkBoxCol.getCellData(o);
-            System.out.println(((CheckBox) (checkBoxCol.getCellData(o))).isSelected());
+        for (CityOfficial o : table.getSelectionModel().getSelectedItems()) {
+            System.out.println(o);
         }
     }
 
