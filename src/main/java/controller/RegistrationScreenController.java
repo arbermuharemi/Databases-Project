@@ -45,10 +45,8 @@ public class RegistrationScreenController extends Controller {
     private TextField titleField;
 
     private ObservableList<UserType> typeList = FXCollections.observableArrayList(UserType.CITY_SCIENTIST, UserType.CITY_OFFICIAL);
-    private ArrayList<String> states;
-    private ObservableList<String> stateList;
-    private ArrayList<String> cities;
-    private ObservableList<String> cityList;
+    private ObservableList<String> stateList = FXCollections.observableArrayList();
+    private ObservableList<String> cityList = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() throws Exception {
@@ -59,22 +57,18 @@ public class RegistrationScreenController extends Controller {
                 "SELECT DISTINCT State "
                         + "FROM `City_State`"
                         + "ORDER BY State ");
-        states = new ArrayList<>();
         db.rs.beforeFirst();
         while (db.rs.next()) {
-            states.add(db.rs.getString("State"));
+            stateList.add(db.rs.getString("State"));
         }
-        cities = new ArrayList<>();
         db.rs.beforeFirst();
         db.rs = db.stmt.executeQuery(
                 "SELECT City "
                         + "FROM `City_State`"
                         + "ORDER BY City ");
         while (db.rs.next()) {
-            cities.add(db.rs.getString("City"));
+            cityList.add(db.rs.getString("City"));
         }
-        stateList = FXCollections.observableList(states);
-        cityList = FXCollections.observableList(cities);
         stateBox.setItems(stateList);
     }
 
@@ -175,7 +169,6 @@ public class RegistrationScreenController extends Controller {
 
     @FXML
     private void changeCities() throws Exception {
-        cities.clear();
         cityList.clear();
         db.preparedStatement = db.conn.prepareStatement(
                 "SELECT City "
@@ -187,9 +180,8 @@ public class RegistrationScreenController extends Controller {
         db.rs = db.preparedStatement.executeQuery();
         db.rs.beforeFirst();
         while (db.rs.next()) {
-            cities.add(db.rs.getString("City"));
+            cityList.add(db.rs.getString("City"));
         }
-        cityList = FXCollections.observableList(cities);
         cityBox.setItems(cityList);
     }
 
