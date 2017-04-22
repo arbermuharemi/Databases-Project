@@ -5,10 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.util.Callback;
 import main.java.fxapp.Main;
 import main.java.model.CityOfficial;
@@ -128,15 +125,37 @@ public class PendingCityOfficialsController extends Controller {
     }
 
     @FXML
-    public void handleRejectPressed() {
-
+    public void handleRejectPressed() throws SQLException{
+        for (CityOfficial cityOfficial : table.getSelectionModel().getSelectedItems()) {
+            db.preparedStatement = db.conn.prepareStatement(
+                    "UPDATE City_Official " +
+                            "SET Approved = '0'" +
+                            "WHERE Username = ?");
+            db.preparedStatement.setString(1, cityOfficial.getUsername());
+            db.preparedStatement.executeUpdate();
+        }
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Successfully Rejected");
+        alert.setContentText("The City Officials you selected have been rejected");
+        alert.showAndWait();
+        myApp.load(new File("../view/PendingCityOfficialScreen.fxml"));
     }
 
     @FXML
-    public void handleAcceptPressed() {
-        for (CityOfficial o : table.getSelectionModel().getSelectedItems()) {
-            System.out.println(o);
+    public void handleAcceptPressed() throws SQLException{
+        for (CityOfficial cityOfficial : table.getSelectionModel().getSelectedItems()) {
+            db.preparedStatement = db.conn.prepareStatement(
+                    "UPDATE City_Official " +
+                            "SET Approved = '1'" +
+                            "WHERE Username = ?");
+            db.preparedStatement.setString(1, cityOfficial.getUsername());
+            db.preparedStatement.executeUpdate();
         }
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Successfully Accepted");
+        alert.setContentText("The City Officials you selected have been accepted");
+        alert.showAndWait();
+        myApp.load(new File("../view/PendingCityOfficialScreen.fxml"));
     }
 
 }
