@@ -1,20 +1,16 @@
 package main.java.controller;
 
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.css.SimpleStyleableObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 import main.java.fxapp.Main;
-import main.java.model.DatabaseRef;
 
 import java.io.File;
 import java.sql.SQLException;
@@ -56,12 +52,20 @@ public class PendingDataPointsController extends Controller {
                     @Override
                     public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
                         CheckBox checkBox = new CheckBox();
-                        ObjectProperty<CheckBox> boxer = new SimpleObjectProperty<CheckBox>();
-                        boxer.setValue(checkBox);
-                        ObservableValue<CheckBox> box = boxer;
-                        return box;
+                        return new SimpleObjectProperty<CheckBox>(checkBox);
                     }
         });
+        //checkBoxCol.setCellValueFactory( new Callback<TableColumn.CellDataFeatures<DataPoint, CheckBox>, ObservableValue<CheckBox>>() {
+        //    @Override
+        //    public ObservableValue<CheckBox> call(
+        //            TableColumn.CellDataFeatures<DataPoint, CheckBox> data) {
+        //        DataPoint dataPoint = data.getValue();
+        //        CheckBox checkBox = new CheckBox();
+        //        System.out.println(checkBox.selectedProperty());
+        //        checkBox.selectedProperty().setValue(Boolean.TRUE);
+        //        return new SimpleObjectProperty<CheckBox>(checkBox);
+        //    }
+        //});
         checkBoxCol.setStyle("-fx-alignment: CENTER;");
         checkBoxCol.setEditable(true);
 
@@ -120,6 +124,15 @@ public class PendingDataPointsController extends Controller {
             myPoint.setLocationName(db.rs.getString("LocationName"));
             data.add(myPoint);
         }
+
+        //for (DataPoint d: data) {
+        //    CheckBox cb = (CheckBox) checkBoxCol.getCellData(d);
+        //    cb.selectedProperty().addListener(
+        //            ((observable, oldValue, newValue) -> {
+        //                d.setSelected(newValue.booleanValue());
+        //            })
+        //    );
+        //}
         table.setItems(data);
         table.getColumns().addAll(checkBoxCol, locaionCol, typeCol, valueCol, dateCol);
     }
@@ -137,7 +150,8 @@ public class PendingDataPointsController extends Controller {
     @FXML
     public void handleAcceptPressed() {
         for (Object o : table.getItems()) {
-            System.out.println(o);
+            //DataPoint a = (DataPoint) o;
+            //System.out.println(a.isSelected());
             Object a = checkBoxCol.getCellData(o);
             System.out.println(((CheckBox) (checkBoxCol.getCellData(o))).isSelected());
         }
