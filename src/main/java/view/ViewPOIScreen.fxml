@@ -52,13 +52,13 @@
                   <Font name="Gill Sans MT" size="18.0" />
                </font>
             </Label>
-            <ComboBox prefHeight="39.0" prefWidth="125.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="cityName" prefHeight="39.0" prefWidth="125.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="75.0" prefHeight="27.0" prefWidth="224.0" text="State" GridPane.rowIndex="2">
                <font>
                   <Font name="Gill Sans MT" size="18.0" />
                </font>
             </Label>
-            <ComboBox prefHeight="39.0" prefWidth="207.0" promptText="Not Selected" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="stateName" prefHeight="39.0" prefWidth="207.0" promptText="Not Selected" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="24.0" prefHeight="27.0" prefWidth="224.0" text="Data Type:" GridPane.rowIndex="3">
                     <font>
                         <Font name="Gill Sans MT" size="18.0" />
@@ -70,13 +70,13 @@
                         <Font name="Gill Sans MT" size="18.0" />
                     </font>
                 </Label>
-                <TextField fx:id="dataValue" prefHeight="39.0" prefWidth="222.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <TextField fx:id="zipcode" prefHeight="39.0" prefWidth="222.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                 <Label alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="221.0" text="Flagged?" GridPane.rowIndex="5">
                     <font>
                         <Font name="Gill Sans MT" size="18.0" />
                     </font>
                 </Label>
-            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <CheckBox fx:id="flagged" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 <Label alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="221.0" text="Date Flagged:" GridPane.rowIndex="6">
                     <font>
                         <Font name="Gill Sans MT" size="18.0" />
