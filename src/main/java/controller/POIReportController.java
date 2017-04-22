@@ -166,7 +166,7 @@ public class POIReportController extends Controller{
         //db.rs = db.stmt.executeQuery("SELECT LocationName AS 'POI' FROM POI WHERE LocationName = 'GSU'");
         db.rs = db.stmt.executeQuery(
         "select * from ( \n" +
-                "`POI` Inner Join (\n" +
+                "`POI` Left Outer Join (\n" +
                 "select * from\n" +
                 "((\n" +
                 "SELECT `LocationName` as Mold_Location , MIN( DataValue ) AS Mold_Min, AVG( DataValue ) AS Mold_Avg, MAX( DataValue ) AS Mold_Max, COUNT( * ) AS Mold_Count\n" +
