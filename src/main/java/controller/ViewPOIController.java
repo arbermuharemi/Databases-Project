@@ -42,6 +42,8 @@ public class ViewPOIController extends Controller{
 
     private ObservableList<String> states = FXCollections.observableArrayList();
 
+    private ObservableList<String> types = FXCollections.observableArrayList();
+
     @FXML
     private void initialize() throws Exception {
         this.db = Main.getDb();
@@ -60,6 +62,11 @@ public class ViewPOIController extends Controller{
         locName.setItems(locations);
         cityName.setItems(cities);
         stateName.setItems(states);
+        db.rs = db.stmt.executeQuery("SELECT * FROM Data_Type");
+        while (db.rs.next()) {
+            types.add(db.rs.getString("Type"));
+        }
+        dataType.setItems(types);
     }
 
     @FXML
