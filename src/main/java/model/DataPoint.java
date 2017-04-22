@@ -1,5 +1,5 @@
 package main.java.model;
-import java.util.Date;
+import java.sql.Timestamp;
 
 /**
  * Created by rishabhmahajani on 4/21/17.
@@ -7,7 +7,7 @@ import java.util.Date;
 public class DataPoint {
     private String locationName;
     private Boolean accepted;
-    private Date myDate;
+    private Timestamp myDate;
     private Type pointType;
     private int dataValue;
 
@@ -19,7 +19,7 @@ public class DataPoint {
         this.accepted = accepted;
     }
 
-    public void setMyDate(Date myDate) {
+    public void setMyDate(Timestamp myDate) {
         this.myDate = myDate;
     }
 
@@ -29,5 +29,25 @@ public class DataPoint {
 
     public void setDataValue(int dataValue) {
         this.dataValue = dataValue;
+    }
+
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public Boolean getAccepted() {
+        return accepted;
+    }
+
+    public Timestamp getMyDate() {
+        return myDate;
+    }
+
+    public String getPointTypeString() {
+        return pointType.name();
+    }
+
+    public int getDataValue () {
+        return dataValue;
     }
 }
