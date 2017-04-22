@@ -32,12 +32,6 @@ public class ViewPOIController extends Controller{
     private DatePicker dateTimeStart;
 
     @FXML
-    private ComboBox<String> dataType;
-
-    @FXML
-    private TextField zipCode;
-
-    @FXML
     private DatePicker dateTimeEnd;
 
     @FXML
@@ -56,9 +50,6 @@ public class ViewPOIController extends Controller{
 
     private ObservableList<String> states = FXCollections.observableArrayList();
 
-    private ObservableList<String> types = FXCollections.observableArrayList();
-
-
     @FXML
     //Location Name, City, State, Zip Code, Flagged, Date Flagged
     //locationCol, cityCol, stateCol, zipCodeCol, checkBoxCol, dateCol
@@ -68,8 +59,6 @@ public class ViewPOIController extends Controller{
     private TableColumn cityCol;
 
     private TableColumn stateCol;
-
-    private TableColumn zipCodeCol;
 
     private TableColumn checkBoxCol;
 
@@ -99,20 +88,12 @@ public class ViewPOIController extends Controller{
         state.setItems(states);
 
 
-        db.rs = db.stmt.executeQuery("SELECT * FROM Data_Type");
-        db.rs.beforeFirst();
-        while (db.rs.next()) {
-            types.add(db.rs.getString("Type"));
-        }
-        dataType.setItems(types);
-
         //Location Name, City, State, Zip Code, Flagged, Date Flagged
         //locationCol, cityCol, stateCol, zipCodeCol, checkBoxCol, dateCol
 
         locationCol = new TableColumn("Location Name");
         cityCol = new TableColumn("City");
         stateCol = new TableColumn("State");
-        zipCodeCol = new TableColumn("Zip Code");
         checkBoxCol = new TableColumn("Flagged?");
         dateCol = new TableColumn("Date Flagged");
 
@@ -149,18 +130,6 @@ public class ViewPOIController extends Controller{
                 }
         );
 
-
-        zipCodeCol.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
-                    @Override
-                    public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
-                        POI poi = (POI) dataFeatures.getValue();
-                        return new SimpleStringProperty(poi.getZip());
-                    }
-                }
-        );
-
-
         dateCol.setCellValueFactory(
                 new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
                     @Override
@@ -182,14 +151,13 @@ public class ViewPOIController extends Controller{
             poi.setLocationName(db.rs.getString("LocationName"));
             poi.setCity(db.rs.getString("City"));
             poi.setState(db.rs.getString("State"));
-            poi.setZip(db.rs.getString("Zipcode"));
             poi.setDateFlagged(db.rs.getTimestamp("DateFlagged"));
             data.add(poi);
         }
 
 
         table.setItems(data);
-        table.getColumns().addAll(locationCol, cityCol, stateCol, zipCodeCol, dateCol);
+        table.getColumns().addAll(locationCol, cityCol, stateCol, dateCol);
 
     }
 
