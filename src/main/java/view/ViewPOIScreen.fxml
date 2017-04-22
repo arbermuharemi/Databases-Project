@@ -62,8 +62,8 @@
                 <TextField fx:id="dataValue" prefHeight="39.0" prefWidth="222.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                 <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                     <buttons>
-                        <Button mnemonicParsing="false" onAction="#handleApplyFilterPressed" text="Apply Filter" />
-                        <Button mnemonicParsing="false" onAction="#handleResetFilterPressed" text="Reset Filter" />
+                        <Button mnemonicParsing="false" text="Apply Filter" />
+                        <Button mnemonicParsing="false" text="Reset Filter" />
                     </buttons></ButtonBar>
                 <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="7" />
             <DatePicker prefHeight="37.0" prefWidth="232.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />

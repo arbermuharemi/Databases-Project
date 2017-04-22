@@ -6,11 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.util.Callback;
 import main.java.fxapp.Main;
 
@@ -119,14 +115,40 @@ public class PendingDataPointsController extends Controller {
     }
 
     @FXML
-    public void handleRejectPressed() {
-
+    public void handleRejectPressed() throws SQLException{
+        for (DataPoint dataPoint : table.getSelectionModel().getSelectedItems()) {
+            db.preparedStatement = db.conn.prepareStatement(
+                    "UPDATE Data_Point " +
+                            "SET Accepted = '0'" +
+                            "WHERE LocationName = ?" +
+                            "AND DateTime = ?");
+            db.preparedStatement.setString(1, dataPoint.getLocationName());
+            db.preparedStatement.setTimestamp(2, dataPoint.getMyDate());
+            db.preparedStatement.executeUpdate();
+        }
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Successfully Rejected");
+        alert.setContentText("The data points you selected have been rejected.");
+        alert.showAndWait();
+        myApp.load(new File("../view/PendingDataPoints.fxml"));
     }
 
     @FXML
-    public void handleAcceptPressed() {
-        for (DataPoint o : table.getSelectionModel().getSelectedItems()) {
-            System.out.println(o);
+    public void handleAcceptPressed() throws SQLException{
+        for (DataPoint dataPoint : table.getSelectionModel().getSelectedItems()) {
+            db.preparedStatement = db.conn.prepareStatement(
+                    "UPDATE Data_Point " +
+                            "SET Accepted = '1'" +
+                            "WHERE LocationName = ?" +
+                            "AND DateTime = ?");
+            db.preparedStatement.setString(1, dataPoint.getLocationName());
+            db.preparedStatement.setTimestamp(2, dataPoint.getMyDate());
+            db.preparedStatement.executeUpdate();
         }
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Successfully Accepted");
+        alert.setContentText("The data points you selected have been accepted");
+        alert.showAndWait();
+        myApp.load(new File("../view/PendingDataPoints.fxml"));
     }
 }
