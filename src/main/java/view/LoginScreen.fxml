@@ -30,8 +30,8 @@
             <Font name="Gill Sans Ultra Bold Condensed" size="48.0" />
          </font></Label>
         <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
         <TextField fx:id="userField" prefWidth="313.0" promptText="Enter Username Here" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
         <PasswordField fx:id="passField" promptText="Enter Password Here" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
       <ButtonBar GridPane.columnIndex="1" GridPane.rowIndex="3">

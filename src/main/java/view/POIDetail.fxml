@@ -6,7 +6,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -43,25 +42,19 @@
                     </font>
                 </Label>
                 <ComboBox fx:id="locName" prefHeight="39.0" prefWidth="129.0" GridPane.columnIndex="1" />
-                <ButtonBar prefHeight="219.0" prefWidth="239.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                    <buttons>
-                        <Button mnemonicParsing="false" text="Apply Filter" />
-                        <Button mnemonicParsing="false" text="Reset Filter" />
-                    </buttons></ButtonBar>
-                <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="7" />
-                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="30.0" text="to  " textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                 <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="194.0" prefHeight="27.0" prefWidth="224.0" text="Data Value" GridPane.rowIndex="1">
                     <font>
                         <Font name="Gill Sans MT" size="18.0" />
                     </font>
                 </Label>
+            <TextField prefHeight="39.0" prefWidth="174.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="30.0" text="to  " textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <TextField layoutX="259.0" layoutY="69.0" prefHeight="39.0" prefWidth="166.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                 <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="75.0" prefHeight="27.0" prefWidth="224.0" text="Time and Date" GridPane.rowIndex="2">
                     <font>
                         <Font name="Gill Sans MT" size="18.0" />
                     </font>
                 </Label>
-            <TextField prefHeight="39.0" prefWidth="174.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField layoutX="259.0" layoutY="69.0" prefHeight="39.0" prefWidth="166.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
                       <DatePicker prefHeight="39.0" prefWidth="103.0" />
@@ -77,9 +70,14 @@
                </children>
             </HBox>
             <Label prefHeight="27.0" prefWidth="27.0" text=" to" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <ButtonBar prefHeight="219.0" prefWidth="239.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <buttons>
+                        <Button mnemonicParsing="false" text="Apply Filter" />
+                        <Button mnemonicParsing="false" text="Reset Filter" />
+                    </buttons></ButtonBar>
             </children>
         </GridPane>
-        <Label alignment="CENTER" contentDisplay="TOP" layoutX="191.0" layoutY="21.0" prefHeight="57.0" prefWidth="420.0" text="POI  Detail" textFill="#b4b93c">
+        <Label alignment="CENTER" contentDisplay="TOP" layoutX="185.0" layoutY="14.0" prefHeight="57.0" prefWidth="420.0" text="POI  Detail" textFill="#b4b93c">
             <font>
                 <Font name="Gill Sans MT" size="36.0" />
             </font>
