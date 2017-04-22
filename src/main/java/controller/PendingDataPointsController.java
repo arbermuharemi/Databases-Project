@@ -7,7 +7,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
 import main.java.fxapp.Main;
@@ -19,17 +21,17 @@ import java.text.SimpleDateFormat;
 import main.java.model.DataPoint;
 import main.java.model.Type;
 
+import javax.xml.crypto.Data;
+
 /**
  * Created by Ashwin Ignatius on 4/21/2017.
  */
 public class PendingDataPointsController extends Controller {
 
     @FXML
-    private TableView table;
+    private TableView<DataPoint> table;
 
-    private TableColumn checkBoxCol;
-
-    private TableColumn locaionCol;
+    private TableColumn locationCol;
 
     private TableColumn typeCol;
 
@@ -41,35 +43,15 @@ public class PendingDataPointsController extends Controller {
 
     public void initialize() throws SQLException {
         this.db = Main.getDb();
-        checkBoxCol = new TableColumn("Select");
-        locaionCol = new TableColumn("POI Location");
+        table.getSelectionModel().setSelectionMode(
+                SelectionMode.MULTIPLE
+        );
+        locationCol = new TableColumn("POI Location");
         typeCol = new TableColumn("Data Type");
         valueCol = new TableColumn("Data Value");
         dateCol = new TableColumn("Time & Date of Data Reading");
 
-        checkBoxCol.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
-                    @Override
-                    public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
-                        CheckBox checkBox = new CheckBox();
-                        return new SimpleObjectProperty<CheckBox>(checkBox);
-                    }
-        });
-        //checkBoxCol.setCellValueFactory( new Callback<TableColumn.CellDataFeatures<DataPoint, CheckBox>, ObservableValue<CheckBox>>() {
-        //    @Override
-        //    public ObservableValue<CheckBox> call(
-        //            TableColumn.CellDataFeatures<DataPoint, CheckBox> data) {
-        //        DataPoint dataPoint = data.getValue();
-        //        CheckBox checkBox = new CheckBox();
-        //        System.out.println(checkBox.selectedProperty());
-        //        checkBox.selectedProperty().setValue(Boolean.TRUE);
-        //        return new SimpleObjectProperty<CheckBox>(checkBox);
-        //    }
-        //});
-        checkBoxCol.setStyle("-fx-alignment: CENTER;");
-        checkBoxCol.setEditable(true);
-
-        locaionCol.setCellValueFactory(
+        locationCol.setCellValueFactory(
                 new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
                     @Override
                     public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
@@ -127,16 +109,8 @@ public class PendingDataPointsController extends Controller {
             data.add(myPoint);
         }
 
-        //for (DataPoint d: data) {
-        //    CheckBox cb = (CheckBox) checkBoxCol.getCellData(d);
-        //    cb.selectedProperty().addListener(
-        //            ((observable, oldValue, newValue) -> {
-        //                d.setSelected(newValue.booleanValue());
-        //            })
-        //    );
-        //}
         table.setItems(data);
-        table.getColumns().addAll(checkBoxCol, locaionCol, typeCol, valueCol, dateCol);
+        table.getColumns().addAll(locationCol, typeCol, valueCol, dateCol);
     }
 
     @FXML
@@ -151,11 +125,8 @@ public class PendingDataPointsController extends Controller {
 
     @FXML
     public void handleAcceptPressed() {
-        for (Object o : table.getItems()) {
-            //DataPoint a = (DataPoint) o;
-            //System.out.println(a.isSelected());
-            Object a = checkBoxCol.getCellData(o);
-            System.out.println(((CheckBox) (checkBoxCol.getCellData(o))).isSelected());
+        for (DataPoint o : table.getSelectionModel().getSelectedItems()) {
+            System.out.println(o);
         }
     }
 }
