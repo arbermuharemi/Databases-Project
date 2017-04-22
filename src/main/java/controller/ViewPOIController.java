@@ -38,15 +38,28 @@ public class ViewPOIController extends Controller{
 
     private ObservableList<String> locations = FXCollections.observableArrayList();
 
+    private ObservableList<String> cities = FXCollections.observableArrayList();
+
+    private ObservableList<String> states = FXCollections.observableArrayList();
+
     @FXML
     private void initialize() throws Exception {
         this.db = Main.getDb();
-        db.rs = db.stmt.executeQuery("SELECT LocationName FROM POI");
+        db.rs = db.stmt.executeQuery("SELECT LocationName, City, State FROM POI");
         while(db.rs.next()) {
             locations.add(db.rs.getString("LocationName"));
-
+            String myCity = db.rs.getString("City");
+            String myState = db.rs.getString("State");
+            if (!cities.contains(myCity)) {
+                cities.add(myCity);
+            }
+            if (!states.contains(myState)) {
+                states.add(myState);
+            }
         }
         locName.setItems(locations);
+        cityName.setItems(cities);
+        stateName.setItems(states);
     }
 
     @FXML
