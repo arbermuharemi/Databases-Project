@@ -9,15 +9,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import main.java.fxapp.Main;
-import main.java.model.DatabaseRef;
-import main.java.model.Type;
-import main.java.model.UserType;
 import java.io.File;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.sql.Timestamp;
 
 public class AddDataPointController extends Controller {
