@@ -50,4 +50,10 @@ public class DataPoint {
     public int getDataValue () {
         return dataValue;
     }
+
+    @Override
+    public String toString() {
+        return locationName + " " + accepted + " " + myDate + " "
+                + pointType.name() + " " + dataValue;
+    }
 }
