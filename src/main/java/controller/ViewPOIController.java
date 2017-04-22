@@ -202,7 +202,7 @@ public class ViewPOIController extends Controller{
 
     @FXML
     public void handleResetFilterPressed() {
-
+        myApp.load(new File("../view/ViewPOIScreen.fxml"));
     }
 
     @FXML
