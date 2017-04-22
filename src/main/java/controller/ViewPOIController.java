@@ -18,7 +18,10 @@ import main.java.model.Type;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 public class ViewPOIController extends Controller{
@@ -188,10 +191,98 @@ public class ViewPOIController extends Controller{
 
     }
 
+    public boolean baseChecker(String base) {
+        if (base.equals("SELECT * FROM POI ")) {
+            return true;
+        }
+        return false;
+    }
 
     @FXML
-    public void handleApplyFilterPressed() {
+    public void handleApplyFilterPressed() throws SQLException {
+        data.clear();
+        String query = "SELECT * FROM POI ";
+        String locat = locName.getValue();
+        String cityData = city.getValue();
+        String stateData = state.getValue();
+        Boolean isFlagged = flagged.isSelected();
+        LocalDate start = dateTimeStart.getValue();
+        LocalDate end = dateTimeEnd.getValue();
+        if (locat != null) {
+            query += "WHERE LocationName ='" + locat + "'";
+        }
+        if (cityData != null) {
+            if (baseChecker(query)) {
+                query += "WHERE ";
+            } else {
+                query += "AND ";
+            }
+             query += "City ='" + cityData + "'";
+        }
+        if (stateData != null) {
+            if (baseChecker(query)) {
+                query += "WHERE ";
+            } else {
+                query += "AND ";
+            }
+            query += "State ='" + stateData + "'";
+        }
+        if (isFlagged || !isFlagged) {
+            if (baseChecker(query)) {
+                query += "WHERE ";
+            } else {
+                query += "AND ";
+            }
+            query += "Flag =" + isFlagged;
+        }
+        if (start != null && end != null) {
+            Timestamp startTime = new Timestamp(start.getYear(), start.getMonthValue(),
+                    start.getDayOfMonth(), 0, 0, 0, 0);
+            Timestamp endTime = new Timestamp(end.getYear(), end.getMonthValue(),
+                    end.getDayOfMonth(), 0, 0, 0, 0);
+            if (baseChecker(query)) {
+                query += "WHERE ";
+            } else {
+                query += "AND ";
+            }
+            query += "DateFlagged IS BETWEEN " + startTime + " AND " + endTime;
+        } else if (start != null && end == null) {
+            Timestamp startTime = new Timestamp(start.getYear(), start.getMonthValue(),
+                    start.getDayOfMonth(), 0, 0, 0, 0);
+            if (baseChecker(query)) {
+                query += "WHERE ";
+            } else {
+                query += "AND ";
+            }
+            query += "DateFlagged IS AFTER " + startTime;
+        } else if (start == null && end != null) {
+            Timestamp endTime = new Timestamp(end.getYear(), end.getMonthValue(),
+                    end.getDayOfMonth(), 0, 0, 0, 0);
+            if (baseChecker(query)) {
+                query += "WHERE ";
+            } else {
+                query += "AND ";
+            }
+            query += "DateFlagged IS BEFORE " + endTime;
+        }
 
+        db.rs = db.stmt.executeQuery(query);
+        System.out.println(query);
+        db.rs.beforeFirst();
+        data = FXCollections.observableArrayList();
+        while (db.rs.next()) {
+            POI poi = new POI();
+
+            poi.setLocationName(db.rs.getString("LocationName"));
+            poi.setCity(db.rs.getString("City"));
+            poi.setState(db.rs.getString("State"));
+            poi.setZip(db.rs.getString("Zipcode"));
+            poi.setFlagged(db.rs.getBoolean("Flag"));
+            poi.setDateFlagged(db.rs.getTimestamp("DateFlagged"));
+            data.add(poi);
+        }
+
+        table.setItems(data);
     }
 
 
