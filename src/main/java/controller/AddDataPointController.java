@@ -107,6 +107,14 @@ public class AddDataPointController extends Controller {
         }
         String dataLocName = locName.getValue();
         LocalDate date = dateTime.getValue();
+        if (date.isAfter(LocalDate.now())) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Invalid Date Input");
+            alert.setContentText("The date you've entered is in the future"
+                    + ", Mcfly! Please enter a valid date");
+            alert.showAndWait();
+            return;
+        }
         int hour = hours.getValue();
         int minute = minutes.getValue();
         Timestamp dataDate = new Timestamp(date.getYear(), date.getMonthValue(),
