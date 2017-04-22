@@ -10,57 +10,132 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import main.java.fxapp.Main;
 import main.java.model.DatabaseRef;
+import main.java.model.Type;
 import main.java.model.UserType;
 import java.io.File;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.sql.Timestamp;
 
 public class AddDataPointController extends Controller {
 
     @FXML
-    private ComboBox locName;
+    private ComboBox<String> locName;
 
     @FXML
     private DatePicker dateTime;
 
     @FXML
-    private ComboBox dataType;
+    private ComboBox<String> dataType;
 
     @FXML
     private TextField dataValue;
 
     @FXML
-    private ComboBox Hours;
+    private ComboBox<Integer> hours;
 
     @FXML
-    private ComboBox Minutes;
+    private ComboBox<Integer> minutes;
 
-    private ObservableList<String> hoursList = FXCollections.observableArrayList();
+    private ObservableList<String> types = FXCollections.observableArrayList();
 
-    private ObservableList<String> minutesList = FXCollections.observableArrayList();
+    private ObservableList<String> pois = FXCollections.observableArrayList();
+
+    private ObservableList<Integer> hoursList = FXCollections.observableArrayList();
+
+    private ObservableList<Integer> minutesList = FXCollections.observableArrayList();
 
     @FXML
-    private void initialize() {
+    private void initialize() throws Exception {
+        this.db = Main.getDb();
+        db.rs = db.stmt.executeQuery("SELECT LocationName FROM POI");
+        db.rs.beforeFirst();
+        while (db.rs.next()) {
+            pois.add(db.rs.getString("LocationName"));
+        }
+        locName.setItems(pois);
+        db.rs = db.stmt.executeQuery("SELECT * FROM Data_Type");
+        db.rs.beforeFirst();
+        while (db.rs.next()) {
+            types.add(db.rs.getString("Type"));
+        }
+        dataType.setItems(types);
         makeHoursList();
-        makeminutesList();
-        Hours.setItems(hoursList);
-        Minutes.setItems(minutesList);
+        makeMinutesList();
+        hours.setItems(hoursList);
+        minutes.setItems(minutesList);
     }
 
     private void makeHoursList() {
         for (int i = 0; i < 24; i++) {
-            hoursList.add(String.format("%02d", i));
+            hoursList.add(i);
         }
     }
 
-    private void makeminutesList() {
+    private void makeMinutesList() {
         for (int i = 0; i < 60; i++) {
-            minutesList.add(String.format("%02d", i));
+            minutesList.add(i);
         }
     }
 
     @FXML
-    public void handleBackPressed() {
-        myApp.load(new File("../view/AddLocation.fxml"));
+    public void handleSubmitPressed() throws Exception {
+        if (dateTime.getValue() == null || hours.getValue() == null
+                || minutes.getValue() == null || dataValue.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Missing Data Point Information");
+            alert.setContentText("One or more fields are blank or have "
+                    + "incorrectly formatted data. Please properly fill in "
+                    + "the date, time, and data value before "
+                    + "continuing.");
+            alert.showAndWait();
+            return;
+        }
+        try {
+            Integer.parseInt(dataValue.getText());
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Invalid Number Input");
+            alert.setContentText("Please enter a valid integer (no decimals) "
+                    + "into the Data Value field");
+            alert.showAndWait();
+            dataValue.clear();
+            return;
+        }
+        String dataLocName = locName.getValue();
+        LocalDate date = dateTime.getValue();
+        int hour = hours.getValue();
+        int minute = minutes.getValue();
+        Timestamp dataDate = new Timestamp(date.getYear(), date.getMonthValue(),
+                date.getDayOfMonth(), hour, minute, 0, 0);
+        String databaseType = dataType.getValue();
+        int value = Integer.parseInt(dataValue.getText());
+        db.preparedStatement = db.conn.prepareStatement(
+                "INSERT INTO `Data_Point` "
+                        + "(`LocationName` ,"
+                        + "`DateTime` ,"
+                        + "`Accepted` ,"
+                        + "`DataValue` ,"
+                        + "`Type`) "
+                        + "VALUES "
+                        + "("
+                        + "?, ?, NULL, ?, ?"
+                        + ")"
+        );
+        db.preparedStatement.setString(1, dataLocName);
+        db.preparedStatement.setTimestamp(2, dataDate);
+        db.preparedStatement.setInt(3, value);
+        db.preparedStatement.setString(4, databaseType);
+        db.preparedStatement.executeUpdate();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Successfully Added!");
+        alert.setContentText("Your data point has been added is awaiting "
+                + "approval.");
+        alert.showAndWait();
+        myApp.load(new File("../view/AddDataPoint.fxml"));
     }
 
     @FXML
