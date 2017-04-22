@@ -37,7 +37,7 @@ public class PendingDataPointsController extends Controller {
 
     private TableColumn dateCol;
 
-    private ObservableList<DataPoint> data = FXCollections.observableArrayList();;
+    private ObservableList<DataPoint> data = FXCollections.observableArrayList();
 
     public void initialize() throws SQLException {
         this.db = Main.getDb();
@@ -112,7 +112,9 @@ public class PendingDataPointsController extends Controller {
                     }
                 }
         );
-        db.rs = db.stmt.executeQuery("SELECT * FROM `Data_Point`");
+        db.rs = db.stmt.executeQuery(
+                "SELECT * FROM `Data_Point` "
+                + "WHERE Accepted IS NULL ");
         db.rs.beforeFirst();
         data = FXCollections.observableArrayList();
         while (db.rs.next()) {
