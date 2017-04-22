@@ -41,15 +41,15 @@
                         <Font name="Gill Sans MT" size="18.0" />
                     </font>
                 </Label>
-                <ComboBox fx:id="locName" prefHeight="39.0" prefWidth="129.0" GridPane.columnIndex="1" />
+                <ComboBox fx:id="type" prefHeight="39.0" prefWidth="129.0" GridPane.columnIndex="1" />
                 <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="194.0" prefHeight="27.0" prefWidth="224.0" text="Data Value" GridPane.rowIndex="1">
                     <font>
                         <Font name="Gill Sans MT" size="18.0" />
                     </font>
                 </Label>
-            <TextField prefHeight="39.0" prefWidth="174.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="startData" prefHeight="39.0" prefWidth="174.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="30.0" text="to  " textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <TextField layoutX="259.0" layoutY="69.0" prefHeight="39.0" prefWidth="166.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <TextField fx:id="endData" layoutX="259.0" layoutY="69.0" prefHeight="39.0" prefWidth="166.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                 <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="75.0" prefHeight="27.0" prefWidth="224.0" text="Time and Date" GridPane.rowIndex="2">
                     <font>
                         <Font name="Gill Sans MT" size="18.0" />
@@ -57,16 +57,16 @@
                 </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                      <DatePicker prefHeight="39.0" prefWidth="103.0" />
-                  <Spinner prefHeight="39.0" prefWidth="66.0" />
-                  <Spinner prefHeight="39.0" prefWidth="70.0" />
+                      <DatePicker fx:id="startDate" prefHeight="39.0" prefWidth="103.0" />
+                  <Spinner fx:id="startHour" prefHeight="39.0" prefWidth="66.0" />
+                  <Spinner fx:id="startMin" prefHeight="39.0" prefWidth="70.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER" layoutX="259.0" layoutY="118.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <children>
-                  <DatePicker prefHeight="39.0" prefWidth="103.0" />
-                  <Spinner prefHeight="39.0" prefWidth="83.0" />
-                  <Spinner prefHeight="39.0" prefWidth="89.0" />
+                  <DatePicker fx:id="endDate" prefHeight="39.0" prefWidth="103.0" />
+                  <Spinner fx:id="endHour" prefHeight="39.0" prefWidth="83.0" />
+                  <Spinner fx:id="endMin" prefHeight="39.0" prefWidth="89.0" />
                </children>
             </HBox>
             <Label prefHeight="27.0" prefWidth="27.0" text=" to" GridPane.columnIndex="2" GridPane.rowIndex="2" />
