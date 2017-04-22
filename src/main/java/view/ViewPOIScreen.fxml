@@ -6,7 +6,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="851.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.ViewPOIController">
+<AnchorPane prefHeight="851.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.ViewPOIController">
     <children>
         <Label alignment="CENTER" contentDisplay="TOP" layoutX="191.0" layoutY="21.0" prefHeight="57.0" prefWidth="420.0" text="View POIs" textFill="#b4b93c">
             <font>
@@ -27,17 +26,17 @@
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="324.0" minWidth="3.0" prefWidth="250.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="543.0" minWidth="10.0" prefWidth="267.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="543.0" minWidth="10.0" prefWidth="28.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="543.0" minWidth="10.0" prefWidth="28.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="265.0" minWidth="0.0" prefWidth="233.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="134.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="143.0" minHeight="0.0" prefHeight="57.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="143.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="143.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="213.0" minHeight="0.0" prefHeight="58.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
@@ -47,18 +46,13 @@
                     </font>
                 </Label>
                 <ComboBox fx:id="locName" prefHeight="39.0" prefWidth="226.0" GridPane.columnIndex="1" />
-            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="194.0" prefHeight="27.0" prefWidth="224.0" text="City" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Gill Sans MT" size="18.0" />
-               </font>
-            </Label>
-            <ComboBox fx:id="cityName" prefHeight="39.0" prefWidth="125.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="75.0" prefHeight="27.0" prefWidth="224.0" text="State" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Gill Sans MT" size="18.0" />
-               </font>
-            </Label>
-            <ComboBox fx:id="stateName" prefHeight="39.0" prefWidth="207.0" promptText="Not Selected" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="221.0" text="Date Flagged:" GridPane.rowIndex="6">
+                    <font>
+                        <Font name="Gill Sans MT" size="18.0" />
+                    </font>
+                </Label>
+                <DatePicker fx:id="dateTimeStart" prefHeight="39.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                 <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="24.0" prefHeight="27.0" prefWidth="224.0" text="Data Type:" GridPane.rowIndex="3">
                     <font>
                         <Font name="Gill Sans MT" size="18.0" />
@@ -70,41 +64,46 @@
                         <Font name="Gill Sans MT" size="18.0" />
                     </font>
                 </Label>
-                <TextField fx:id="zipcode" prefHeight="39.0" prefWidth="222.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <Label alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="221.0" text="Flagged?" GridPane.rowIndex="5">
-                    <font>
-                        <Font name="Gill Sans MT" size="18.0" />
-                    </font>
-                </Label>
-            <CheckBox fx:id="flagged" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                <Label alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="221.0" text="Date Flagged:" GridPane.rowIndex="6">
-                    <font>
-                        <Font name="Gill Sans MT" size="18.0" />
-                    </font>
-                </Label>
-                <DatePicker fx:id="dateTime" prefHeight="39.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="30.0" text="to  " textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
-            <DatePicker prefHeight="37.0" prefWidth="232.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                <TextField fx:id="zipCode" prefHeight="39.0" prefWidth="222.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                 <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                     <buttons>
                         <Button mnemonicParsing="false" text="Apply Filter" />
                         <Button mnemonicParsing="false" text="Reset Filter" />
                     </buttons></ButtonBar>
+                <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="7" />
+                <DatePicker fx:id="dateTimeEnd" prefHeight="37.0" prefWidth="232.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="30.0" text="to  " textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+                <Label alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="221.0" text="Flagged?" GridPane.rowIndex="5">
+                    <font>
+                        <Font name="Gill Sans MT" size="18.0" />
+                    </font>
+                </Label>
+                <CheckBox fx:id="flagged" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="194.0" prefHeight="27.0" prefWidth="224.0" text="City" GridPane.rowIndex="1">
+                    <font>
+                        <Font name="Gill Sans MT" size="18.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="75.0" prefHeight="27.0" prefWidth="224.0" text="State" GridPane.rowIndex="2">
+                    <font>
+                        <Font name="Gill Sans MT" size="18.0" />
+                    </font>
+                </Label>
+                <ComboBox fx:id="city" prefHeight="39.0" prefWidth="125.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <ComboBox fx:id="state" prefHeight="39.0" prefWidth="207.0" promptText="Not Selected" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             </children>
         </GridPane>
-      <TableView layoutX="53.0" layoutY="593.0" prefHeight="178.0" prefWidth="690.0">
-        <columns>
-          <TableColumn prefWidth="234.0" text="Location Name" />
-          <TableColumn prefWidth="120.0" text="City" />
-            <TableColumn prefWidth="69.0" text="State" />
-            <TableColumn prefWidth="103.0" text="Flagged?" />
-            <TableColumn prefWidth="163.0" text="Date Flagged" />
-        </columns>
-      </TableView>
-      <BorderPane layoutX="301.0" layoutY="780.0" prefHeight="57.0" prefWidth="200.0">
-         <center>
-            <Button mnemonicParsing="false" onAction="#handleBackPressed" prefHeight="39.0" prefWidth="92.0" text="Back" BorderPane.alignment="CENTER" />
-         </center>
-      </BorderPane>
+        <Label alignment="CENTER" contentDisplay="TOP" layoutX="191.0" layoutY="21.0" prefHeight="57.0" prefWidth="420.0" text="View POIs" textFill="#b4b93c">
+            <font>
+                <Font name="Gill Sans MT" size="36.0" />
+            </font>
+        </Label>
+        <TableView fx:id="table" editable="true" layoutX="53.0" layoutY="593.0" prefHeight="178.0" prefWidth="690.0">
+        </TableView>
+        <BorderPane layoutX="301.0" layoutY="780.0" prefHeight="57.0" prefWidth="200.0">
+            <center>
+                <Button mnemonicParsing="false" onAction="#handleBackPressed" prefHeight="39.0" prefWidth="92.0" text="Back" BorderPane.alignment="CENTER" />
+            </center>
+        </BorderPane>
     </children>
 </AnchorPane>
