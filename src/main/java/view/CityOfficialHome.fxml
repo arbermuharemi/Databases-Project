@@ -33,7 +33,7 @@
                         <Font name="Gill Sans MT" size="36.0" />
                     </font>
                 </Hyperlink>
-                <Hyperlink alignment="CENTER" prefHeight="66.0" prefWidth="500.0" text="POI Report" textFill="#0978ea" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <Hyperlink onAction="#handlePOIReportPressed" alignment="CENTER" prefHeight="66.0" prefWidth="500.0" text="POI Report" textFill="#0978ea" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <font>
                         <Font name="Gill Sans MT" size="36.0" />
                     </font></Hyperlink>

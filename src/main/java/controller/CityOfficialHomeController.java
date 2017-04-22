@@ -13,6 +13,9 @@ import java.io.File;
 public class CityOfficialHomeController extends Controller{
 
     @FXML
+    public void handlePOIReportPressed() { myApp.load(new File("../view/POIReportScreen.fxml")); }
+
+    @FXML
     public void handleLogOutPressed() {myApp.load(new File("../view/LoginScreen.fxml")); }
 
     @FXML

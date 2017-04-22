@@ -55,6 +55,7 @@ public class LoginScreenController extends Controller {
                 alert.setTitle("Not Approved");
                 alert.setContentText("Your account has not been approved yet. Please contact an administrator to approve your account");
                 alert.showAndWait();
+                return;
             }
             myApp.load(new File("../view/CityOfficialHome.fxml"));
         } else if (userType.equals(UserType.CITY_SCIENTIST)) {
