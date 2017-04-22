@@ -1,5 +1,6 @@
 package main.java.controller;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -34,6 +35,19 @@ public class ViewPOIController extends Controller{
 
     @FXML
     private DatePicker dateTime;
+
+    private ObservableList<String> locations = FXCollections.observableArrayList();
+
+    @FXML
+    private void initialize() throws Exception {
+        this.db = Main.getDb();
+        db.rs = db.stmt.executeQuery("SELECT LocationName FROM POI");
+        while(db.rs.next()) {
+            locations.add(db.rs.getString("LocationName"));
+
+        }
+        locName.setItems(locations);
+    }
 
     @FXML
     public void handleBackPressed()  {
