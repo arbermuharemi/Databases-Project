@@ -1,5 +1,7 @@
 package main.java.controller;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -26,13 +28,13 @@ public class POIReportController extends Controller{
     private TableColumn locationCol;
     private TableColumn cityCol;
     private TableColumn stateCol;
-    private TableColumn moldMinCol;
-    private TableColumn moldAvgCol;
-    private TableColumn moldMaxCol;
-    private TableColumn aqMinCol;
-    private TableColumn aqAvgCol;
-    private TableColumn aqMaxCol;
-    private TableColumn numPointsCol;
+    private TableColumn<POI, Double> moldMinCol;
+    private TableColumn<POI, Double> moldAvgCol;
+    private TableColumn<POI, Double> moldMaxCol;
+    private TableColumn<POI, Double> aqMinCol;
+    private TableColumn<POI, Double> aqAvgCol;
+    private TableColumn<POI, Double> aqMaxCol;
+    private TableColumn<POI, Integer> numPointsCol;
     private TableColumn flaggedCol;
 
     private ObservableList<POI> data = FXCollections.observableArrayList();
@@ -85,71 +87,71 @@ public class POIReportController extends Controller{
         stateCol.setSortable(false);
 
         moldMinCol.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
+                new Callback<TableColumn.CellDataFeatures<POI, Double>, ObservableValue<Double>>() {
                     @Override
                     public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
                         POI poi = (POI) dataFeatures.getValue();
-                        return new SimpleStringProperty(poi.getMoldMin() + "");
+                        return new SimpleDoubleProperty(poi.getMoldMin());
                     }
                 }
         );
 
         moldAvgCol.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
+                new Callback<TableColumn.CellDataFeatures<POI, Double>, ObservableValue<Double>>() {
                     @Override
                     public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
                         POI poi = (POI) dataFeatures.getValue();
-                        return new SimpleStringProperty(poi.getMoldAvg() + "");
+                        return new SimpleDoubleProperty(poi.getMoldAvg());
                     }
                 }
         );
 
         moldMaxCol.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
+                new Callback<TableColumn.CellDataFeatures<POI, Double>, ObservableValue<Double>>() {
                     @Override
                     public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
                         POI poi = (POI) dataFeatures.getValue();
-                        return new SimpleStringProperty(poi.getMoldMax() + "");
+                        return new SimpleDoubleProperty(poi.getMoldMax());
                     }
                 }
         );
 
         aqMinCol.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
+                new Callback<TableColumn.CellDataFeatures<POI, Double>, ObservableValue<Double>>() {
                     @Override
                     public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
                         POI poi = (POI) dataFeatures.getValue();
-                        return new SimpleStringProperty(poi.getAqMin() + "");
+                        return new SimpleDoubleProperty(poi.getAqMin());
                     }
                 }
         );
 
         aqAvgCol.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
+                new Callback<TableColumn.CellDataFeatures<POI, Double>, ObservableValue<Double>>() {
                     @Override
                     public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
                         POI poi = (POI) dataFeatures.getValue();
-                        return new SimpleStringProperty(poi.getAqAvg() + "");
+                        return new SimpleDoubleProperty(poi.getAqAvg());
                     }
                 }
         );
 
         aqMaxCol.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
+                new Callback<TableColumn.CellDataFeatures<POI, Double>, ObservableValue<Double>>() {
                     @Override
                     public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
                         POI poi = (POI) dataFeatures.getValue();
-                        return new SimpleStringProperty(poi.getAqMax() + "");
+                        return new SimpleDoubleProperty(poi.getAqMax());
                     }
                 }
         );
 
         numPointsCol.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
+                new Callback<TableColumn.CellDataFeatures<POI, Integer>, ObservableValue<Integer>>() {
                     @Override
                     public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
                         POI poi = (POI) dataFeatures.getValue();
-                        return new SimpleStringProperty(poi.getNumPoints() + "");
+                        return new SimpleIntegerProperty(poi.getNumPoints());
                     }
                 }
         );
@@ -165,42 +167,42 @@ public class POIReportController extends Controller{
         );
         //db.rs = db.stmt.executeQuery("SELECT LocationName AS 'POI' FROM POI WHERE LocationName = 'GSU'");
         db.rs = db.stmt.executeQuery(
-        "select * from ( \n" +
-                "`POI` Left Outer Join (\n" +
-                "select * from\n" +
-                "((\n" +
-                "SELECT `LocationName` as Mold_Location , MIN( DataValue ) AS Mold_Min, AVG( DataValue ) AS Mold_Avg, MAX( DataValue ) AS Mold_Max, COUNT( * ) AS Mold_Count\n" +
-                "FROM `Data_Point` \n" +
-                "WHERE `Type` = \"Mold\"\n" +
-                "AND `Accepted` = \"1\"\n" +
-                "GROUP BY `LocationName`\n" +
-                ") MoldTable\n" +
-                "LEFT OUTER JOIN (\n" +
-                "SELECT `LocationName` as AQ_Location , MIN( DataValue ) AS AQ_Min, AVG( DataValue ) AS AQ_Avg, MAX( DataValue ) AS AQ_Max, COUNT( * ) AS AQ_Count\n" +
-                "FROM `Data_Point` \n" +
-                "WHERE `Type` = \"Air_Quality\"\n" +
-                "AND `Accepted` = \"1\"\n" +
-                "GROUP BY `LocationName`\n" +
-                ") AQTable ON MoldTable.Mold_Location = AQTable.AQ_Location)\n" +
-                "\n" +
-                "UNION\n" +
-                "\n" +
-                "select * from\n" +
-                "((\n" +
-                "SELECT `LocationName` as Mold_Location , MIN( DataValue ) AS Mold_Min, AVG( DataValue ) AS Mold_Avg, MAX( DataValue ) AS Mold_Max, COUNT( * ) AS Mold_Count\n" +
-                "FROM `Data_Point` \n" +
-                "WHERE `Type` = \"Mold\"\n" +
-                "AND `Accepted` = \"1\"\n" +
-                "GROUP BY `LocationName`\n" +
-                ") MoldTable\n" +
-                "RIGHT OUTER JOIN (\n" +
-                "SELECT `LocationName` as AQ_Location , MIN( DataValue ) AS AQ_Min, AVG( DataValue ) AS AQ_Avg, MAX( DataValue ) AS AQ_Max, COUNT( * ) AS AQ_Count\n" +
-                "FROM `Data_Point` \n" +
-                "WHERE `Type` = \"Air_Quality\"\n" +
-                "AND `Accepted` = \"1\"\n" +
-                "GROUP BY `LocationName`\n" +
-                ") AQTable ON MoldTable.Mold_Location = AQTable.AQ_Location)\n" +
-                ")UnionTable on UnionTable.Mold_Location = POI.LocationName OR UnionTable.AQ_Location = POI.LocationName)\n");
+                "select * from ( \n" +
+                        "`POI` Left Outer Join (\n" +
+                        "select * from\n" +
+                        "((\n" +
+                        "SELECT `LocationName` as Mold_Location , MIN( DataValue ) AS Mold_Min, AVG( DataValue ) AS Mold_Avg, MAX( DataValue ) AS Mold_Max, COUNT( * ) AS Mold_Count\n" +
+                        "FROM `Data_Point` \n" +
+                        "WHERE `Type` = \"Mold\"\n" +
+                        "AND `Accepted` = \"1\"\n" +
+                        "GROUP BY `LocationName`\n" +
+                        ") MoldTable\n" +
+                        "LEFT OUTER JOIN (\n" +
+                        "SELECT `LocationName` as AQ_Location , MIN( DataValue ) AS AQ_Min, AVG( DataValue ) AS AQ_Avg, MAX( DataValue ) AS AQ_Max, COUNT( * ) AS AQ_Count\n" +
+                        "FROM `Data_Point` \n" +
+                        "WHERE `Type` = \"Air_Quality\"\n" +
+                        "AND `Accepted` = \"1\"\n" +
+                        "GROUP BY `LocationName`\n" +
+                        ") AQTable ON MoldTable.Mold_Location = AQTable.AQ_Location)\n" +
+                        "\n" +
+                        "UNION\n" +
+                        "\n" +
+                        "select * from\n" +
+                        "((\n" +
+                        "SELECT `LocationName` as Mold_Location , MIN( DataValue ) AS Mold_Min, AVG( DataValue ) AS Mold_Avg, MAX( DataValue ) AS Mold_Max, COUNT( * ) AS Mold_Count\n" +
+                        "FROM `Data_Point` \n" +
+                        "WHERE `Type` = \"Mold\"\n" +
+                        "AND `Accepted` = \"1\"\n" +
+                        "GROUP BY `LocationName`\n" +
+                        ") MoldTable\n" +
+                        "RIGHT OUTER JOIN (\n" +
+                        "SELECT `LocationName` as AQ_Location , MIN( DataValue ) AS AQ_Min, AVG( DataValue ) AS AQ_Avg, MAX( DataValue ) AS AQ_Max, COUNT( * ) AS AQ_Count\n" +
+                        "FROM `Data_Point` \n" +
+                        "WHERE `Type` = \"Air_Quality\"\n" +
+                        "AND `Accepted` = \"1\"\n" +
+                        "GROUP BY `LocationName`\n" +
+                        ") AQTable ON MoldTable.Mold_Location = AQTable.AQ_Location)\n" +
+                        ")UnionTable on UnionTable.Mold_Location = POI.LocationName OR UnionTable.AQ_Location = POI.LocationName)\n");
         db.rs.beforeFirst();
         while (db.rs.next()) {
             POI poi = new POI();

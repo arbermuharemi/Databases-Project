@@ -1,5 +1,6 @@
 package main.java.controller;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -12,6 +13,7 @@ import main.java.fxapp.Main;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 import main.java.model.DataPoint;
@@ -31,9 +33,9 @@ public class PendingDataPointsController extends Controller {
 
     private TableColumn typeCol;
 
-    private TableColumn valueCol;
+    private TableColumn<DataPoint, Double> valueCol;
 
-    private TableColumn dateCol;
+    private TableColumn<DataPoint, Timestamp> dateCol;
 
     private ObservableList<DataPoint> data = FXCollections.observableArrayList();
 
@@ -70,18 +72,18 @@ public class PendingDataPointsController extends Controller {
         typeCol.setSortable(true);
 
         valueCol.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
+                new Callback<TableColumn.CellDataFeatures<DataPoint, Double>, ObservableValue<Double>>() {
                     @Override
                     public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
                         DataPoint dataPoint = (DataPoint) dataFeatures.getValue();
-                        return new SimpleStringProperty(dataPoint.getDataValue() + "");
+                        return new SimpleDoubleProperty(dataPoint.getDataValue());
                     }
                 }
         );
         valueCol.setSortable(true);
 
         dateCol.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
+                new Callback<TableColumn.CellDataFeatures<DataPoint, Timestamp>, ObservableValue<Timestamp>>() {
                     @Override
                     public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
                         DataPoint dataPoint = (DataPoint) dataFeatures.getValue();
@@ -89,12 +91,12 @@ public class PendingDataPointsController extends Controller {
                         String date = new SimpleDateFormat("MM/dd/yyyy " +
                                 "HH:mm").format(dataPoint.getMyDate());
 
-                        return new SimpleStringProperty(date);
+                        return new SimpleObjectProperty(dataPoint.getMyDate());
                     }
                 }
         );
         dateCol.setSortable(true);
-        
+
         db.rs = db.stmt.executeQuery(
                 "SELECT * FROM `Data_Point` "
                 + "WHERE Accepted IS NULL ");

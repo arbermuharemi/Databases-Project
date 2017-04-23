@@ -68,7 +68,7 @@ public class ViewPOIController extends Controller{
 
     private TableColumn checkBoxCol;
 
-    private TableColumn dateCol;
+    private TableColumn<POI, Timestamp> dateCol;
 
     private ObservableList<POI> data = FXCollections.observableArrayList();
 
@@ -165,7 +165,7 @@ public class ViewPOIController extends Controller{
 
 
         dateCol.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
+                new Callback<TableColumn.CellDataFeatures<POI, Timestamp>, ObservableValue<Timestamp>>() {
                     @Override
                     public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
                         POI poi = (POI) dataFeatures.getValue();
