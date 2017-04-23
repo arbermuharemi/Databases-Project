@@ -75,6 +75,11 @@ public class ViewPOIController extends Controller{
     @FXML
     private void initialize() throws Exception {
         this.db = Main.getDb();
+        table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                myApp.load(new File("../view/POIDetail.fxml"));
+            }
+        });
 
         db.rs = db.stmt.executeQuery("SELECT LocationName, City, State FROM POI");
         db.rs.beforeFirst();
