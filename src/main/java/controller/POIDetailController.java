@@ -233,11 +233,11 @@ public class POIDetailController extends Controller {
             query += "AND Type ='" + dataType + "'";
         }
 
-        if (!beginData.isEmpty() && !finData.isEmpty()) {
+        if (isValidNumber(beginData) && isValidNumber(beginData)) {
             query += "AND DataValue BETWEEN'" + beginData + "'AND'" + finData + "'";
-        } else if (!beginData.isEmpty() && finData.isEmpty()) {
+        } else if (isValidNumber(beginData) && !isValidNumber(beginData)) {
             query += "AND DataValue >='" + beginData + "'";
-        } else if (beginData.isEmpty() && !finData.isEmpty()) {
+        } else if (!isValidNumber(beginData) && isValidNumber(beginData)) {
             query += "AND DataValue <='" + finData + "'";
         }
 
@@ -275,4 +275,25 @@ public class POIDetailController extends Controller {
 
     @FXML
     private void handleResetFilterPressed() throws Exception { myApp.loadPOIDetail(location); }
+
+
+    private boolean isValidNumber(String number) {
+
+        if (number == null) {
+            return false;
+        }
+
+        Pattern p = Pattern.compile("^(?=\\s*\\S).*$");
+
+        Matcher m = p.matcher(number);
+        boolean nonEmpty = m.matches();   //Should be true for valid input
+
+        p = Pattern.compile("^[0-9]+$");
+        Matcher n = p.matcher(number);
+
+        boolean onlyNumber = n.matches(); //Should be true for valid input
+
+        return nonEmpty && onlyNumber;
+
+    }
 }
