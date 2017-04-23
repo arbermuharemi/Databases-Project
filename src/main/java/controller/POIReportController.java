@@ -167,42 +167,44 @@ public class POIReportController extends Controller{
         );
         //db.rs = db.stmt.executeQuery("SELECT LocationName AS 'POI' FROM POI WHERE LocationName = 'GSU'");
         db.rs = db.stmt.executeQuery(
-                "select * from ( \n" +
-                        "`POI` Left Outer Join (\n" +
-                        "select * from\n" +
-                        "((\n" +
-                        "SELECT `LocationName` as Mold_Location , MIN( DataValue ) AS Mold_Min, AVG( DataValue ) AS Mold_Avg, MAX( DataValue ) AS Mold_Max, COUNT( * ) AS Mold_Count\n" +
-                        "FROM `Data_Point` \n" +
-                        "WHERE `Type` = \"Mold\"\n" +
-                        "AND `Accepted` = \"1\"\n" +
-                        "GROUP BY `LocationName`\n" +
-                        ") MoldTable\n" +
-                        "LEFT OUTER JOIN (\n" +
-                        "SELECT `LocationName` as AQ_Location , MIN( DataValue ) AS AQ_Min, AVG( DataValue ) AS AQ_Avg, MAX( DataValue ) AS AQ_Max, COUNT( * ) AS AQ_Count\n" +
-                        "FROM `Data_Point` \n" +
-                        "WHERE `Type` = \"Air_Quality\"\n" +
-                        "AND `Accepted` = \"1\"\n" +
-                        "GROUP BY `LocationName`\n" +
-                        ") AQTable ON MoldTable.Mold_Location = AQTable.AQ_Location)\n" +
-                        "\n" +
-                        "UNION\n" +
-                        "\n" +
-                        "select * from\n" +
-                        "((\n" +
-                        "SELECT `LocationName` as Mold_Location , MIN( DataValue ) AS Mold_Min, AVG( DataValue ) AS Mold_Avg, MAX( DataValue ) AS Mold_Max, COUNT( * ) AS Mold_Count\n" +
-                        "FROM `Data_Point` \n" +
-                        "WHERE `Type` = \"Mold\"\n" +
-                        "AND `Accepted` = \"1\"\n" +
-                        "GROUP BY `LocationName`\n" +
-                        ") MoldTable\n" +
-                        "RIGHT OUTER JOIN (\n" +
-                        "SELECT `LocationName` as AQ_Location , MIN( DataValue ) AS AQ_Min, AVG( DataValue ) AS AQ_Avg, MAX( DataValue ) AS AQ_Max, COUNT( * ) AS AQ_Count\n" +
-                        "FROM `Data_Point` \n" +
-                        "WHERE `Type` = \"Air_Quality\"\n" +
-                        "AND `Accepted` = \"1\"\n" +
-                        "GROUP BY `LocationName`\n" +
-                        ") AQTable ON MoldTable.Mold_Location = AQTable.AQ_Location)\n" +
-                        ")UnionTable on UnionTable.Mold_Location = POI.LocationName OR UnionTable.AQ_Location = POI.LocationName)\n");
+                "SELECT `LocationName`, `City`, `State`, `Mold_Min`, `Mold_Avg`, `Mold_Max`,  `AQ_Min`, `AQ_Avg`, `AQ_Max`, IfNull(`Mold_Count`,0) + IfNull(`AQ_Count`,0) AS Count,`Flag`\n"
+                        + "FROM ( \n"
+                        + "`POI` Inner Join (\n"
+                        + "select * from\n"
+                        + "((\n"
+                        + "SELECT `LocationName` as Mold_Location , MIN( DataValue ) AS Mold_Min, AVG( DataValue ) AS Mold_Avg, MAX( DataValue ) AS Mold_Max, COUNT( * ) AS Mold_Count\n"
+                        + "FROM `Data_Point` \n"
+                        + "WHERE `Type` = \"Mold\"\n"
+                        + "AND `Accepted` = \"1\"\n"
+                        + "GROUP BY `LocationName`\n"
+                        + ") MoldTable\n"
+                        + "LEFT OUTER JOIN (\n"
+                        + "SELECT `LocationName` as AQ_Location , MIN( DataValue ) AS AQ_Min, AVG( DataValue ) AS AQ_Avg, MAX( DataValue ) AS AQ_Max, COUNT( * ) AS AQ_Count\n"
+                        + "FROM `Data_Point` \n"
+                        + "WHERE `Type` = \"Air_Quality\"\n"
+                        + "AND `Accepted` = \"1\"\n"
+                        + "GROUP BY `LocationName`\n"
+                        + ") AQTable ON MoldTable.Mold_Location = AQTable.AQ_Location)\n"
+                        + "\n"
+                        + "UNION\n"
+                        + "\n"
+                        + "select * from\n"
+                        + "((\n"
+                        + "SELECT `LocationName` as Mold_Location , MIN( DataValue ) AS Mold_Min, AVG( DataValue ) AS Mold_Avg, MAX( DataValue ) AS Mold_Max, COUNT( * ) AS Mold_Count\n"
+                        + "FROM `Data_Point` \n"
+                        + "WHERE `Type` = \"Mold\"\n"
+                        + "AND `Accepted` = \"1\"\n"
+                        + "GROUP BY `LocationName`\n"
+                        + ") MoldTable\n"
+                        + "RIGHT OUTER JOIN (\n"
+                        + "SELECT `LocationName` as AQ_Location , MIN( DataValue ) AS AQ_Min, AVG( DataValue ) AS AQ_Avg, MAX( DataValue ) AS AQ_Max, COUNT( * ) AS AQ_Count\n"
+                        + "FROM `Data_Point` \n"
+                        + "WHERE `Type` = \"Air_Quality\"\n"
+                        + "AND `Accepted` = \"1\"\n"
+                        + "GROUP BY `LocationName`\n"
+                        + ") AQTable ON MoldTable.Mold_Location = AQTable.AQ_Location)\n"
+                        + ")UnionTable on UnionTable.Mold_Location = POI.LocationName OR UnionTable.AQ_Location = POI.LocationName)\n"
+                        + "\n");
         db.rs.beforeFirst();
         while (db.rs.next()) {
             POI poi = new POI();
@@ -215,18 +217,8 @@ public class POIReportController extends Controller{
             poi.setAqMin(db.rs.getDouble("AQ_Min"));
             poi.setAqAvg(db.rs.getDouble("AQ_Avg"));
             poi.setAqMax(db.rs.getDouble("AQ_Max"));
-            Integer mold_count = db.rs.getInt("Mold_Count");
-            Integer aq_count = db.rs.getInt("AQ_Count");
-            Integer myPoints = 0;
-            if (mold_count == null) {
-                myPoints = aq_count;
-            } else if (aq_count == null) {
-                myPoints = mold_count;
-            } else {
-                myPoints = mold_count + aq_count;
-            }
-            poi.setNumPoints(myPoints);
-            poi.setFlagged(db.rs.getBoolean("DateFlagged"));
+            poi.setNumPoints(db.rs.getInt("Count"));
+            poi.setFlagged(db.rs.getBoolean("Flag"));
             data.add(poi);
         }
         table.setItems(data);
