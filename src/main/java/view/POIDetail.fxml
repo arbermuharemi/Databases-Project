@@ -76,7 +76,7 @@
                 <Font name="Gill Sans MT" size="36.0" />
             </font>
         </Label>
-        <TableView layoutX="59.0" layoutY="311.0" prefHeight="230.0" prefWidth="470.0">
+        <TableView fx:id="table" layoutX="59.0" layoutY="311.0" prefHeight="230.0" prefWidth="470.0">
         </TableView>
         <BorderPane layoutX="151.0" layoutY="541.0" prefHeight="57.0" prefWidth="287.0">
          <left>

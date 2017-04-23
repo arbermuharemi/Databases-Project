@@ -28,7 +28,7 @@
                     <font>
                         <Font name="Gill Sans MT Bold" size="48.0" />
                     </font></Label>
-                <Hyperlink alignment="CENTER" contentDisplay="TOP" onAction="#handleFilterPressed" prefHeight="62.0" prefWidth="500.0" text="Filer/Search POI" textFill="#0978ea" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Hyperlink alignment="CENTER" contentDisplay="TOP" onAction="#handleFilterPressed" prefHeight="62.0" prefWidth="500.0" text="Filter/Search POI" textFill="#0978ea" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <font>
                         <Font name="Gill Sans MT" size="36.0" />
                     </font>
