@@ -14,7 +14,9 @@ import main.java.model.Type;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 /**
  * Created by Ashwin Ignatius on 4/22/2017.
@@ -136,13 +138,6 @@ public class POIDetailController extends Controller {
 
         table.getColumns().addAll(typeCol, valueCol, dateCol);
         table.setItems(data);
-
-        makeHoursList();
-        makeMinutesList();
-        startHour.setItems(hoursList);
-        startMin.setItems(minutesList);
-        endHour.setItems(hoursList);
-        endMin.setItems(minutesList);
     }
 
     private void makeHoursList() {
@@ -158,10 +153,13 @@ public class POIDetailController extends Controller {
     }
 
     public void initialize() throws Exception {
-
+        makeHoursList();
+        makeMinutesList();
+        startHour.setItems(hoursList);
+        startMin.setItems(minutesList);
+        endHour.setItems(hoursList);
+        endMin.setItems(minutesList);
     }
-
-
 
     @FXML
     private void handleBackPressed() {myApp.load(new File("../view/ViewPOIScreen.fxml")); }
@@ -185,4 +183,103 @@ public class POIDetailController extends Controller {
         db.preparedStatement.setString(1, location);
         db.preparedStatement.executeUpdate();
     }
+
+    public boolean baseChecker(String base) {
+        if (base.equals("SELECT `Type`, `DataValue`, `DateTime` FROM `Data_Point` ")) {
+            return true;
+        }
+        return false;
+    }
+
+    @FXML
+    private void handleApplyFilterPressed() throws SQLException {
+        data.clear();
+        String query = "SELECT `Type`, `DataValue`, `DateTime` "
+                + "FROM `Data_Point` ";
+        String dataType = type.getValue();
+        String beginData = startData.getText();
+        String finData = endData.getText();
+        LocalDate finDate = endDate.getValue();
+        LocalDate beginDate = startDate.getValue();
+        int beginHours = startHour.getValue();
+        int finHours = endHour.getValue();
+        int beginMin = startMin.getValue();
+        int finMin = endMin.getValue();
+
+        if (dataType != null) {
+            query += "WHERE Type ='" + dataType + "'";
+        }
+
+        if (beginData != null && finData != null) {
+            if (baseChecker(query)) {
+                query += "WHERE ";
+            } else {
+                query += "AND ";
+            }
+            query += "DataValue BETWEEN'" + beginData + "'AND'" + finData + "'";
+        } else if (beginData != null && finData == null) {
+            if (baseChecker(query)) {
+                query += "WHERE ";
+            } else {
+                query += "AND ";
+            }
+            query += "DataValue >='" + beginData + "'";
+        } else if (beginData == null && finData != null) {
+            if (baseChecker(query)) {
+                query += "WHERE ";
+            } else {
+                query += "AND ";
+            }
+            query += "DataValue <='" + finData + "'";
+        }
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        if (beginDate != null && finDate != null) {
+            Timestamp startTime = new Timestamp(beginDate.getYear() - 1900, beginDate.getMonthValue() - 1,
+                    beginDate.getDayOfMonth(), beginHours, beginMin, 0, 0);
+            Timestamp endTime = new Timestamp(finDate.getYear() - 1900, finDate.getMonthValue() - 1,
+                    finDate.getDayOfMonth(), finHours, finMin, 0, 0);
+            if (baseChecker(query)) {
+                query += "WHERE ";
+            } else {
+                query += "AND ";
+            }
+            query += "DateFlagged BETWEEN '" + dateFormat.format(startTime) + "' AND '" + dateFormat.format(endTime) + "'";
+        } else if (beginDate != null && finDate == null) {
+            Timestamp startTime = new Timestamp(beginDate.getYear() - 1900, beginDate.getMonthValue() - 1,
+                    beginDate.getDayOfMonth(), beginHours, beginMin, 0, 0);
+            if (baseChecker(query)) {
+                query += "WHERE ";
+            } else {
+                query += "AND ";
+            }
+            query += "DateFlagged >= '" + dateFormat.format(startTime) + "'";
+        } else if (beginDate == null && finDate != null) {
+            Timestamp endTime = new Timestamp(finDate.getYear() - 1900, finDate.getMonthValue() - 1,
+                    finDate.getDayOfMonth(), finHours, finMin, 0, 0);
+            if (baseChecker(query)) {
+                query += "WHERE ";
+            } else {
+                query += "AND ";
+            }
+            query += "DateFlagged <= '" + dateFormat.format(endTime) + "'";
+        }
+
+        System.out.println(query);
+        db.rs = db.stmt.executeQuery(query);
+        db.rs.beforeFirst();
+        data = FXCollections.observableArrayList();
+        while (db.rs.next()) {
+            DataPoint myPoint = new DataPoint();
+            myPoint.setDataValue(db.rs.getInt("DataValue"));
+            myPoint.setMyDate(db.rs.getTimestamp("DateTime"));
+            myPoint.setPointType(Type.valueOf(db.rs.getString("Type")));
+            data.add(myPoint);
+        }
+
+        table.setItems(data);
+    }
+
+    @FXML
+    private void handleResetFilterPressed() throws Exception { myApp.loadPOIDetail(location); }
 }

@@ -56,15 +56,15 @@
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
                       <DatePicker fx:id="startDate" prefHeight="39.0" prefWidth="103.0" />
-                  <ComboBox fx:id="startHour" prefHeight="39.0" prefWidth="72.0" />
-                  <ComboBox fx:id="startMin" prefHeight="39.0" prefWidth="77.0" />
+                  <ComboBox fx:id="startHour" prefHeight="39.0" prefWidth="72.0" promptText="Hrs" />
+                  <ComboBox fx:id="startMin" prefHeight="39.0" prefWidth="77.0" promptText="Min" />
                </children>
             </HBox>
             <HBox alignment="CENTER" layoutX="259.0" layoutY="118.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <children>
                   <DatePicker fx:id="endDate" prefHeight="39.0" prefWidth="103.0" />
-                  <ComboBox fx:id="endHour" prefHeight="39.0" prefWidth="70.0" />
-                  <ComboBox fx:id="endMin" prefHeight="39.0" prefWidth="72.0" />
+                  <ComboBox fx:id="endHour" prefHeight="39.0" prefWidth="70.0" promptText="Hrs" />
+                  <ComboBox fx:id="endMin" prefHeight="39.0" prefWidth="72.0" promptText="Min" />
                </children>
             </HBox>
             <Label prefHeight="27.0" prefWidth="27.0" text=" to" GridPane.columnIndex="2" GridPane.rowIndex="2" />
@@ -90,8 +90,8 @@
         </BorderPane>
           <ButtonBar layoutX="537.0" layoutY="311.0" prefHeight="89.0" prefWidth="239.0">
               <buttons>
-                  <Button mnemonicParsing="false" text="Apply Filter" />
-                  <Button mnemonicParsing="false" text="Reset Filter" />
+                  <Button mnemonicParsing="false" onAction="#handleApplyFilterPressed" text="Apply Filter" />
+                  <Button mnemonicParsing="false" onAction="#handleResetFilterPressed" text="Reset Filter" />
               </buttons>
       </ButtonBar>
     </children>
