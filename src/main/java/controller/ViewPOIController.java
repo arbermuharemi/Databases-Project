@@ -163,6 +163,8 @@ public class ViewPOIController extends Controller{
                     @Override
                     public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
                         POI poi = (POI) dataFeatures.getValue();
+                        //String date = new SimpleDateFormat("MM/dd/yyyy " +
+                                //"HH:mm").format(poi.getDateFlagged());
                         return new SimpleStringProperty(poi.getDateFlagged() + "");
                     }
                 }
@@ -235,44 +237,44 @@ public class ViewPOIController extends Controller{
             }
             query += "Flag =" + isFlagged;
         }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         if (start != null && end != null) {
-            Timestamp startTime = new Timestamp(start.getYear(), start.getMonthValue(),
+            Timestamp startTime = new Timestamp(start.getYear() - 1900, start.getMonthValue() - 1,
                     start.getDayOfMonth(), 0, 0, 0, 0);
-            Timestamp endTime = new Timestamp(end.getYear(), end.getMonthValue(),
+            Timestamp endTime = new Timestamp(end.getYear() - 1900, end.getMonthValue() - 1,
                     end.getDayOfMonth(), 0, 0, 0, 0);
             if (baseChecker(query)) {
                 query += "WHERE ";
             } else {
                 query += "AND ";
             }
-            query += "DateFlagged IS BETWEEN " + startTime + " AND " + endTime;
+            query += "DateFlagged BETWEEN '" + dateFormat.format(startTime) + "' AND '" + dateFormat.format(endTime) + "'";
         } else if (start != null && end == null) {
-            Timestamp startTime = new Timestamp(start.getYear(), start.getMonthValue(),
+            Timestamp startTime = new Timestamp(start.getYear() - 1900, start.getMonthValue() - 1,
                     start.getDayOfMonth(), 0, 0, 0, 0);
             if (baseChecker(query)) {
                 query += "WHERE ";
             } else {
                 query += "AND ";
             }
-            query += "DateFlagged IS AFTER " + startTime;
+            query += "DateFlagged >= '" + dateFormat.format(startTime) + "'";
         } else if (start == null && end != null) {
-            Timestamp endTime = new Timestamp(end.getYear(), end.getMonthValue(),
+            Timestamp endTime = new Timestamp(end.getYear() - 1900, end.getMonthValue() - 1,
                     end.getDayOfMonth(), 0, 0, 0, 0);
             if (baseChecker(query)) {
                 query += "WHERE ";
             } else {
                 query += "AND ";
             }
-            query += "DateFlagged IS BEFORE " + endTime;
+            query += "DateFlagged <= '" + dateFormat.format(endTime) + "'";
         }
 
-        db.rs = db.stmt.executeQuery(query);
         System.out.println(query);
+        db.rs = db.stmt.executeQuery(query);
         db.rs.beforeFirst();
         data = FXCollections.observableArrayList();
         while (db.rs.next()) {
             POI poi = new POI();
-
             poi.setLocationName(db.rs.getString("LocationName"));
             poi.setCity(db.rs.getString("City"));
             poi.setState(db.rs.getString("State"));
