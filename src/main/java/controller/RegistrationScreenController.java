@@ -49,7 +49,7 @@ public class RegistrationScreenController extends Controller {
     private ObservableList<String> cityList = FXCollections.observableArrayList();
 
     @FXML
-    private void initialize() throws Exception {
+    public void initialize() throws Exception {
         typeBox.setItems(typeList);
         typeBox.setValue(UserType.CITY_SCIENTIST);
         this.db = Main.getDb();
@@ -85,6 +85,17 @@ public class RegistrationScreenController extends Controller {
                     + "all of the required fields before continuing.");
             alert.showAndWait();
             return;
+        }
+        if (typeBox.getValue().equals(UserType.CITY_OFFICIAL)) {
+            if (cityBox.getValue() == null || stateBox.getValue() == null || titleField.getText().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Missing City Official Information");
+                alert.setContentText("One or more fields are blank. Please "
+                        + "fill in your State, City, and Title before "
+                        + "continuing.");
+                alert.showAndWait();
+                return;
+            }
         }
         db.preparedStatement = db.conn.prepareStatement(
                 "SELECT * "
@@ -131,15 +142,6 @@ public class RegistrationScreenController extends Controller {
         db.preparedStatement.setString(4, typeBox.getValue().name());
         db.preparedStatement.executeUpdate();
         if (typeBox.getValue().equals(UserType.CITY_OFFICIAL)) {
-            if (cityBox.getValue().isEmpty() || stateBox.getValue().isEmpty() || titleField.getText().isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Missing City Official Information");
-                alert.setContentText("One or more fields are blank. Please "
-                        + "fill in your State, City, and Title before "
-                        + "continuing.");
-                alert.showAndWait();
-                return;
-            }
             db.preparedStatement = db.conn.prepareStatement(
                     "INSERT INTO `City_Official` ("
                             + "`Username` ,"
@@ -157,7 +159,14 @@ public class RegistrationScreenController extends Controller {
             db.preparedStatement.setString(3, cityBox.getValue());
             db.preparedStatement.setString(4, stateBox.getValue());
             db.preparedStatement.executeUpdate();
-            myApp.load(new File("../view/CityOfficialHome.fxml"));;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Waiting for Approval");
+            alert.setContentText("Your account has been registered. "
+                    + "You will be unable to login until you account is "
+                    + "approved by an Administrator.");
+            alert.showAndWait();
+            myApp.load(new File("../view/LoginScreen.fxml"));
+            return;
         }
         myApp.load(new File("../view/AddDataPoint.fxml"));
     }

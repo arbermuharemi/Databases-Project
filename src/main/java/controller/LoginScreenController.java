@@ -53,7 +53,10 @@ public class LoginScreenController extends Controller {
             if (!db.rs.getBoolean("Approved")) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Not Approved");
-                alert.setContentText("Your account has not been approved yet. Please contact an administrator to approve your account");
+                alert.setContentText("Your account has either been rejected "
+                        + "or it has not been approved yet. "
+                        + "Please contact an administrator to approve "
+                        + "your account");
                 alert.showAndWait();
                 return;
             }
