@@ -180,7 +180,7 @@ public class POIReportController extends Controller{
                         + "       + Ifnull(`AQ_Count`, 0) AS Count, \n"
                         + "       `Flag` \n"
                         + "FROM   ( `POI` \n"
-                        + "         INNER JOIN (SELECT * \n"
+                        + "         LEFT OUTER JOIN (SELECT * \n"
                         + "                     FROM   ((SELECT `LocationName` AS Mold_Location, \n"
                         + "                                    Min(DataValue) AS Mold_Min, \n"
                         + "                                    Avg(DataValue) AS Mold_Avg, \n"
