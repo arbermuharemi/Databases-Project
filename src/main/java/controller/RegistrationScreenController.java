@@ -97,6 +97,13 @@ public class RegistrationScreenController extends Controller {
                 return;
             }
         }
+        if (!isValidEmail(email)) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Invalid Email");
+            alert.setContentText("The email you entered was not possible. Please enter a valid eamil.");
+            alert.showAndWait();
+            return;
+        }
         db.preparedStatement = db.conn.prepareStatement(
                 "SELECT * "
                         + "FROM `User` "
@@ -192,6 +199,15 @@ public class RegistrationScreenController extends Controller {
             cityList.add(db.rs.getString("City"));
         }
         cityBox.setItems(cityList);
+    }
+
+
+    private boolean isValidEmail(String email) {
+        Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+        Matcher m = p.matcher(email);
+        //boolean matchFound = m.matches();
+        //return matchFound;
+        return m.matches();
     }
 
 
