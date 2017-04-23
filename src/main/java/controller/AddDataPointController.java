@@ -133,7 +133,15 @@ public class AddDataPointController extends Controller {
         db.preparedStatement.setTimestamp(2, dataDate);
         db.preparedStatement.setInt(3, value);
         db.preparedStatement.setString(4, databaseType);
-        db.preparedStatement.executeUpdate();
+        try {
+            db.preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("An Error Occured!");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return;
+        }
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Successfully Added!");
         alert.setContentText("Your data point has been added is awaiting "

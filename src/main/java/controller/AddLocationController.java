@@ -62,7 +62,15 @@ public class AddLocationController extends Controller {
                         + "ORDER BY City");
         db.preparedStatement.setString(1, stateBox.getValue());
         //System.out.println(db.preparedStatement);
-        db.rs = db.preparedStatement.executeQuery();
+        try {
+            db.rs = db.preparedStatement.executeQuery();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("An Error Occured!");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return;
+        }
         db.rs.beforeFirst();
         while (db.rs.next()) {
             cityList.add(db.rs.getString("City"));
@@ -107,7 +115,15 @@ public class AddLocationController extends Controller {
                         + "WHERE LocationName = ? ");
         db.preparedStatement.setString(1, location);
         //System.out.println(db.preparedStatement);
-        db.rs = db.preparedStatement.executeQuery();
+        try {
+            db.rs = db.preparedStatement.executeQuery();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("An Error Occured!");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return;
+        }
         if (db.rs.first()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("POI Location Already Exists");
@@ -134,7 +150,15 @@ public class AddLocationController extends Controller {
         db.preparedStatement.setString(2, zipCode);
         db.preparedStatement.setString(3, city);
         db.preparedStatement.setString(4, state);
-        db.preparedStatement.executeUpdate();
+        try {
+            db.preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("An Error Occured!");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return;
+        }
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Successfully Added");
         alert.setContentText("Your location was successfully added!");

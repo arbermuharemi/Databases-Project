@@ -351,5 +351,9 @@ public class ViewPOIController extends Controller{
     }
 
     @FXML
-    public void handleViewDetailPressed() throws Exception { myApp.loadPOIDetail(table.getSelectionModel().getSelectedItem().getLocationName(), table.getSelectionModel().getSelectedItem().getFlagged()); }
+    public void handleViewDetailPressed() throws Exception {
+        if (table.getSelectionModel().getSelectedItem() != null) {
+            myApp.loadPOIDetail(table.getSelectionModel().getSelectedItem().getLocationName(), table.getSelectionModel().getSelectedItem().getFlagged());
+        }
+    }
 }

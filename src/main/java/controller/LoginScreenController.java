@@ -34,7 +34,15 @@ public class LoginScreenController extends Controller {
         db.preparedStatement.setString(1, userField.getText());
         db.preparedStatement.setString(2, passField.getText());
         //System.out.println(db.preparedStatement);
-        db.rs = db.preparedStatement.executeQuery();
+        try {
+            db.rs = db.preparedStatement.executeQuery();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("An Error Occured!");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return;
+        }
         if (!(db.rs.first())) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Credentials Error");
@@ -48,7 +56,15 @@ public class LoginScreenController extends Controller {
         } else if (userType.equals(UserType.CITY_OFFICIAL)) {
             db.preparedStatement = db.conn.prepareStatement("SELECT Approved FROM City_Official WHERE Username = ?");
             db.preparedStatement.setString(1, userField.getText());
-            db.rs = db.preparedStatement.executeQuery();
+            try {
+                db.rs = db.preparedStatement.executeQuery();
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("An Error Occured!");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+                return;
+            }
             db.rs.first();
             if (!db.rs.getBoolean("Approved")) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

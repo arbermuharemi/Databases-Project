@@ -131,7 +131,15 @@ public class PendingDataPointsController extends Controller {
                             "AND DateTime = ?");
             db.preparedStatement.setString(1, dataPoint.getLocationName());
             db.preparedStatement.setTimestamp(2, dataPoint.getMyDate());
-            db.preparedStatement.executeUpdate();
+            try {
+                db.preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("An Error Occured!");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+                return;
+            }
         }
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Successfully Rejected");
@@ -150,7 +158,15 @@ public class PendingDataPointsController extends Controller {
                             "AND DateTime = ?");
             db.preparedStatement.setString(1, dataPoint.getLocationName());
             db.preparedStatement.setTimestamp(2, dataPoint.getMyDate());
-            db.preparedStatement.executeUpdate();
+            try {
+                db.preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("An Error Occured!");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+                return;
+            }
         }
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Successfully Accepted");

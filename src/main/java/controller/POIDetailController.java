@@ -136,7 +136,15 @@ public class POIDetailController extends Controller {
                         + "WHERE LocationName = ? "
                         + "AND Accepted = '1' ");
         db.preparedStatement.setString(1, location);
-        db.rs = db.preparedStatement.executeQuery();
+        try {
+            db.rs = db.preparedStatement.executeQuery();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("An Error Occured!");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return;
+        }
         db.rs.beforeFirst();
         data = FXCollections.observableArrayList();
         while (db.rs.next()) {
@@ -193,7 +201,15 @@ public class POIDetailController extends Controller {
                         "WHERE LocationName = ?");
         db.preparedStatement.setString(1, dateTime);
         db.preparedStatement.setString(2, location);
-        db.preparedStatement.executeUpdate();
+        try {
+            db.preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("An Error Occured!");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return;
+        }
         flagButton.setDisable(true);
         unflagButton.setDisable(false);
     }
@@ -205,7 +221,15 @@ public class POIDetailController extends Controller {
                         "SET Flag = '0', DateFlagged = NULL " +
                         "WHERE LocationName = ?");
         db.preparedStatement.setString(1, location);
-        db.preparedStatement.executeUpdate();
+        try {
+            db.preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("An Error Occured!");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return;
+        }
         unflagButton.setDisable(true);
         flagButton.setDisable(false);
     }

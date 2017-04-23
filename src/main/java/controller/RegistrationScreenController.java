@@ -135,22 +135,31 @@ public class RegistrationScreenController extends Controller {
             return;
         }
 
-        db.preparedStatement = db.conn.prepareStatement(
-                "INSERT INTO `User` ("
-                        + "`Username` ,"
-                        + "`EmailAddress` ,"
-                        + "`Password` ,"
-                        + "`UserType`"
-                        + ")"
-                        + "VALUES ("
-                        + "?, ?, ?, ?"
-                        + ")"
-        );
+            db.preparedStatement = db.conn.prepareStatement(
+                    "INSERT INTO `User` ("
+                            + "`Username` ,"
+                            + "`EmailAddress` ,"
+                            + "`Password` ,"
+                            + "`UserType`"
+                            + ")"
+                            + "VALUES ("
+                            + "?, ?, ?, ?"
+                            + ")"
+            );
+
         db.preparedStatement.setString(1, userName);
         db.preparedStatement.setString(2, email);
         db.preparedStatement.setString(3, pass);
         db.preparedStatement.setString(4, typeBox.getValue().name());
-        db.preparedStatement.executeUpdate();
+        try {
+            db.preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("An Error Occured!");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return;
+        }
         if (typeBox.getValue().equals(UserType.CITY_OFFICIAL)) {
             db.preparedStatement = db.conn.prepareStatement(
                     "INSERT INTO `City_Official` ("
@@ -168,7 +177,15 @@ public class RegistrationScreenController extends Controller {
             db.preparedStatement.setString(2, titleField.getText());
             db.preparedStatement.setString(3, cityBox.getValue());
             db.preparedStatement.setString(4, stateBox.getValue());
-            db.preparedStatement.executeUpdate();
+            try {
+                db.preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("An Error Occured!");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+                return;
+            }
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Waiting for Approval");
             alert.setContentText("Your account has been registered. "
@@ -196,7 +213,15 @@ public class RegistrationScreenController extends Controller {
                         + "ORDER BY City");
         db.preparedStatement.setString(1, stateBox.getValue());
         //System.out.println(db.preparedStatement);
-        db.rs = db.preparedStatement.executeQuery();
+        try {
+            db.rs = db.preparedStatement.executeQuery();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("An Error Occured!");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return;
+        }
         db.rs.beforeFirst();
         while (db.rs.next()) {
             cityList.add(db.rs.getString("City"));
