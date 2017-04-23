@@ -82,10 +82,10 @@
                 <Button mnemonicParsing="false" onAction="#handleBackPressed" prefHeight="39.0" prefWidth="92.0" text="Back" BorderPane.alignment="CENTER" />
          </left>
          <center>
-            <Button mnemonicParsing="false" onAction="#handleFlagPressed" prefHeight="37.0" prefWidth="78.0" text="Flag" BorderPane.alignment="CENTER" />
+            <Button fx:id="flagButton" mnemonicParsing="false" onAction="#handleFlagPressed" prefHeight="37.0" prefWidth="78.0" text="Flag" BorderPane.alignment="CENTER" />
          </center>
          <right>
-            <Button mnemonicParsing="false" onAction="#handleUnFlagPressed" prefHeight="39.0" prefWidth="85.0" text="UnFlag" BorderPane.alignment="CENTER" />
+            <Button fx:id="unflagButton" mnemonicParsing="false" onAction="#handleUnFlagPressed" prefHeight="39.0" prefWidth="85.0" text="UnFlag" BorderPane.alignment="CENTER" />
          </right>
         </BorderPane>
           <ButtonBar layoutX="537.0" layoutY="311.0" prefHeight="89.0" prefWidth="239.0">

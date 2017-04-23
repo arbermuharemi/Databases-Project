@@ -47,7 +47,7 @@ public class Main extends Application {
         }
     }
 
-    public void loadPOIDetail(String location) throws Exception {
+    public void loadPOIDetail(String location, boolean isFlagged) throws Exception {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("../view/POIDetail.fxml"));
@@ -55,7 +55,7 @@ public class Main extends Application {
 
             POIDetailController controller = loader.getController();
             controller.setMainApp(this);
-            controller.setLocation(location);
+            controller.setLocation(location, isFlagged);
 
             window.setTitle("POI location: " + location);
             window.setScene(new Scene(sceneLayout));

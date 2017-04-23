@@ -53,6 +53,12 @@ public class POIDetailController extends Controller {
     @FXML
     private ComboBox<Integer> endMin;
 
+    @FXML
+    private Button unflagButton;
+
+    @FXML
+    private Button flagButton;
+
     private ObservableList<Integer> hoursList = FXCollections.observableArrayList();
 
     private ObservableList<Integer> minutesList = FXCollections.observableArrayList();
@@ -65,12 +71,15 @@ public class POIDetailController extends Controller {
 
     private String location;
 
+    private boolean isFlagged;
+
     private ObservableList<String> types = FXCollections.observableArrayList();
 
     private ObservableList<DataPoint> data = FXCollections.observableArrayList();
 
-    public void setLocation(String location) throws Exception {
+    public void setLocation(String location, boolean isFlagged) throws Exception {
         this.location = location;
+        this.isFlagged = isFlagged;
         this.db = Main.getDb();
         typeCol = new TableColumn("Data Type");
         valueCol = new TableColumn("Data Value");
@@ -135,7 +144,13 @@ public class POIDetailController extends Controller {
             myPoint.setPointType(Type.valueOf(db.rs.getString("Type")));
             data.add(myPoint);
         }
-
+        if (isFlagged) {
+            unflagButton.setDisable(false);
+            flagButton.setDisable(true);
+        } else {
+            unflagButton.setDisable(true);
+            flagButton.setDisable(false);
+        }
         table.getColumns().addAll(typeCol, valueCol, dateCol);
         table.setItems(data);
     }
@@ -172,6 +187,8 @@ public class POIDetailController extends Controller {
                         "WHERE LocationName = ?");
         db.preparedStatement.setString(1, location);
         db.preparedStatement.executeUpdate();
+        flagButton.setDisable(true);
+        unflagButton.setDisable(false);
     }
 
     @FXML
@@ -182,14 +199,10 @@ public class POIDetailController extends Controller {
                         "WHERE LocationName = ?");
         db.preparedStatement.setString(1, location);
         db.preparedStatement.executeUpdate();
+        unflagButton.setDisable(true);
+        flagButton.setDisable(false);
     }
 
-    public boolean baseChecker(String base) {
-        if (base.equals("SELECT `Type`, `DataValue`, `DateTime` FROM `Data_Point` ")) {
-            return true;
-        }
-        return false;
-    }
 
     @FXML
     private void handleApplyFilterPressed() throws SQLException {
@@ -274,5 +287,5 @@ public class POIDetailController extends Controller {
     }
 
     @FXML
-    private void handleResetFilterPressed() throws Exception { myApp.loadPOIDetail(location); }
+    private void handleResetFilterPressed() throws Exception { myApp.loadPOIDetail(location, isFlagged); }
 }
