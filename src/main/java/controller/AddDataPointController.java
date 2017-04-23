@@ -44,7 +44,10 @@ public class AddDataPointController extends Controller {
     @FXML
     private void initialize() throws Exception {
         this.db = Main.getDb();
-        db.rs = db.stmt.executeQuery("SELECT LocationName FROM POI");
+        db.rs = db.stmt.executeQuery(
+                "SELECT LocationName "
+                        + "FROM POI "
+                        + "ORDER BY LocationName");
         db.rs.beforeFirst();
         while (db.rs.next()) {
             pois.add(db.rs.getString("LocationName"));
