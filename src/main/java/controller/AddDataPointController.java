@@ -110,7 +110,7 @@ public class AddDataPointController extends Controller {
         }
         int hour = hours.getValue();
         int minute = minutes.getValue();
-        Timestamp dataDate = new Timestamp(date.getYear(), date.getMonthValue(),
+        Timestamp dataDate = new Timestamp(date.getYear() - 1900, date.getMonthValue() - 1,
                 date.getDayOfMonth(), hour, minute, 0, 0);
         String databaseType = dataType.getValue();
         int value = Integer.parseInt(dataValue.getText());
