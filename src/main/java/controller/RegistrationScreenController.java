@@ -13,6 +13,8 @@ import main.java.model.UserType;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Arber on 4/10/2017.
@@ -96,6 +98,14 @@ public class RegistrationScreenController extends Controller {
                 alert.showAndWait();
                 return;
             }
+        }
+        if (!isValidEmail(email)) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Invalid Email");
+            alert.setContentText("The email you entered was not valid. "
+                    + "Please enter a valid email.");
+            alert.showAndWait();
+            return;
         }
         db.preparedStatement = db.conn.prepareStatement(
                 "SELECT * "
@@ -192,6 +202,12 @@ public class RegistrationScreenController extends Controller {
             cityList.add(db.rs.getString("City"));
         }
         cityBox.setItems(cityList);
+    }
+    
+    private boolean isValidEmail(String email) {
+        Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+        Matcher m = p.matcher(email);
+        return m.matches();
     }
 
 
