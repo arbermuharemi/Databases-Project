@@ -68,7 +68,7 @@ public class ViewPOIController extends Controller{
 
     private TableColumn checkBoxCol;
 
-    private TableColumn<POI, Timestamp> dateCol;
+    private TableColumn dateCol;
 
     private ObservableList<POI> data = FXCollections.observableArrayList();
 
@@ -165,15 +165,15 @@ public class ViewPOIController extends Controller{
 
 
         dateCol.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures<POI, Timestamp>, ObservableValue<Timestamp>>() {
+                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
                     @Override
                     public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
                         POI poi = (POI) dataFeatures.getValue();
                         if (poi.getDateFlagged() != null) {
-                            String date = new SimpleDateFormat("MM/dd/yyyy").format(poi.getDateFlagged());
+                            String date = new SimpleDateFormat("yyyy/MM/dd").format(poi.getDateFlagged());
                             return new SimpleStringProperty(date);
                         }
-                        return new SimpleStringProperty(poi.getDateFlagged() + "");
+                        return new SimpleObjectProperty(poi.getDateFlagged());
                     }
                 }
         );
