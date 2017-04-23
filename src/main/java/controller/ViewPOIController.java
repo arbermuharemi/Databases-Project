@@ -173,7 +173,7 @@ public class ViewPOIController extends Controller{
                             String date = new SimpleDateFormat("yyyy/MM/dd").format(poi.getDateFlagged());
                             return new SimpleStringProperty(date);
                         }
-                        return new SimpleObjectProperty(poi.getDateFlagged());
+                        return new SimpleStringProperty("~N/A~");
                     }
                 }
         );
