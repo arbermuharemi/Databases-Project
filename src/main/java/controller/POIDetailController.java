@@ -13,6 +13,7 @@ import main.java.model.POI;
 import main.java.model.Type;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
 /**
@@ -36,19 +37,23 @@ public class POIDetailController extends Controller {
     private DatePicker startDate;
 
     @FXML
-    private Spinner startHour;
+    private ComboBox<Integer> startHour;
 
     @FXML
-    private Spinner startMin;
+    private ComboBox<Integer> startMin;
 
     @FXML
     private DatePicker endDate;
 
     @FXML
-    private Spinner endHour;
+    private ComboBox<Integer> endHour;
 
     @FXML
-    private Spinner endMin;
+    private ComboBox<Integer> endMin;
+
+    private ObservableList<Integer> hoursList = FXCollections.observableArrayList();
+
+    private ObservableList<Integer> minutesList = FXCollections.observableArrayList();
 
     private TableColumn typeCol;
 
@@ -131,8 +136,26 @@ public class POIDetailController extends Controller {
 
         table.getColumns().addAll(typeCol, valueCol, dateCol);
         table.setItems(data);
+
+        makeHoursList();
+        makeMinutesList();
+        startHour.setItems(hoursList);
+        startMin.setItems(minutesList);
+        endHour.setItems(hoursList);
+        endMin.setItems(minutesList);
     }
 
+    private void makeHoursList() {
+        for (int i = 0; i < 24; i++) {
+            hoursList.add(i);
+        }
+    }
+
+    private void makeMinutesList() {
+        for (int i = 0; i < 60; i++) {
+            minutesList.add(i);
+        }
+    }
 
     public void initialize() throws Exception {
 
@@ -142,4 +165,24 @@ public class POIDetailController extends Controller {
 
     @FXML
     private void handleBackPressed() {myApp.load(new File("../view/ViewPOIScreen.fxml")); }
+
+    @FXML
+    private void handleFlagPressed() throws SQLException{
+        db.preparedStatement = db.conn.prepareStatement(
+                "UPDATE POI " +
+                        "SET Flag = 1" +
+                        "WHERE LocationName = ?");
+        db.preparedStatement.setString(1, location);
+        db.preparedStatement.executeUpdate();
+    }
+
+    @FXML
+    private void handleUnFlagPressed() throws SQLException {
+        db.preparedStatement = db.conn.prepareStatement(
+                "UPDATE POI " +
+                        "SET Flag = 0" +
+                        "WHERE LocationName = ?");
+        db.preparedStatement.setString(1, location);
+        db.preparedStatement.executeUpdate();
+    }
 }
