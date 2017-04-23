@@ -158,7 +158,7 @@ public class ViewPOIController extends Controller{
                     @Override
                     public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
                         POI poi = (POI) dataFeatures.getValue();
-                        return new SimpleBooleanProperty(poi.getFlagged());
+                        return new SimpleStringProperty(poi.getFlaggedString());
                     }
                 }
         );
@@ -169,8 +169,10 @@ public class ViewPOIController extends Controller{
                     @Override
                     public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
                         POI poi = (POI) dataFeatures.getValue();
-                        //String date = new SimpleDateFormat("MM/dd/yyyy " +
-                                //"HH:mm").format(poi.getDateFlagged());
+                        if (poi.getDateFlagged() != null) {
+                            String date = new SimpleDateFormat("MM/dd/yyyy").format(poi.getDateFlagged());
+                            return new SimpleStringProperty(date);
+                        }
                         return new SimpleStringProperty(poi.getDateFlagged() + "");
                     }
                 }

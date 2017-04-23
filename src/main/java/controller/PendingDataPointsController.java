@@ -56,6 +56,7 @@ public class PendingDataPointsController extends Controller {
                     }
                 }
         );
+        locationCol.setSortable(true);
 
         typeCol.setCellValueFactory(
                 new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
@@ -66,6 +67,7 @@ public class PendingDataPointsController extends Controller {
                     }
                 }
         );
+        typeCol.setSortable(true);
 
         valueCol.setCellValueFactory(
                 new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
@@ -76,6 +78,7 @@ public class PendingDataPointsController extends Controller {
                     }
                 }
         );
+        valueCol.setSortable(true);
 
         dateCol.setCellValueFactory(
                 new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
@@ -90,6 +93,8 @@ public class PendingDataPointsController extends Controller {
                     }
                 }
         );
+        dateCol.setSortable(true);
+        
         db.rs = db.stmt.executeQuery(
                 "SELECT * FROM `Data_Point` "
                 + "WHERE Accepted IS NULL ");
