@@ -82,18 +82,20 @@ public class ViewPOIController extends Controller{
             }
         });*/
 
-        db.rs = db.stmt.executeQuery("SELECT LocationName, City, State FROM POI");
+        db.rs = db.stmt.executeQuery("SELECT LocationName FROM POI ORDER BY LocationName");
         db.rs.beforeFirst();
         while (db.rs.next()) {
             pois.add(db.rs.getString("LocationName"));
-            String myState = db.rs.getString("State");
-            String myCity = db.rs.getString("City");
-            if (!states.contains(myState)) {
-                states.add(db.rs.getString("State"));
-            }
-            if (!cities.contains(myCity)) {
-                cities.add(db.rs.getString("City"));
-            }
+        }
+        db.rs = db.stmt.executeQuery("SELECT DISTINCT State FROM POI ORDER BY State");
+        db.rs.beforeFirst();
+        while (db.rs.next()) {
+            states.add(db.rs.getString("State"));
+        }
+        db.rs = db.stmt.executeQuery("SELECT DISTINCT City FROM POI ORDER BY City");
+        db.rs.beforeFirst();
+        while (db.rs.next()) {
+            cities.add(db.rs.getString("City"));
         }
         locName.setItems(pois);
         city.setItems(cities);
@@ -295,6 +297,48 @@ public class ViewPOIController extends Controller{
         table.setItems(data);
     }
 
+
+    //@FXML
+    //public void onCityChosen() throws Exception {
+    //    System.out.println(state.getValue());
+    //    if (state.getValue() == null) {
+    //        states.clear();
+    //        db.preparedStatement = db.conn.prepareStatement(
+    //                "SELECT DISTINCT State "
+    //                        + "FROM POI "
+    //                        + "WHERE City = ?"
+    //                        + "ORDER BY State");
+    //        db.preparedStatement.setString(1, city.getValue());
+    //        System.out.println(db.preparedStatement);
+    //        db.rs = db.preparedStatement.executeQuery();
+    //        db.rs.beforeFirst();
+    //        while (db.rs.next()) {
+    //            states.add(db.rs.getString("State"));
+    //        }
+    //        state.setItems(states);
+    //    }
+    //}
+    //
+    //@FXML
+    //public void onStateChosen() throws Exception {
+    //    System.out.println(city.getValue());
+    //    if (city.getValue() == null) {
+    //        cities.clear();
+    //        db.preparedStatement = db.conn.prepareStatement(
+    //                "SELECT City "
+    //                        + "FROM POI "
+    //                        + "WHERE State = ?"
+    //                        + "ORDER BY City");
+    //        db.preparedStatement.setString(1, state.getValue());
+    //        System.out.println(db.preparedStatement);
+    //        db.rs = db.preparedStatement.executeQuery();
+    //        db.rs.beforeFirst();
+    //        while (db.rs.next()) {
+    //            cities.add(db.rs.getString("City"));
+    //        }
+    //        city.setItems(cities);
+    //    }
+    //}
 
     @FXML
     public void handleResetFilterPressed() {
