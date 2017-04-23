@@ -203,13 +203,10 @@ public class RegistrationScreenController extends Controller {
         }
         cityBox.setItems(cityList);
     }
-
-
+    
     private boolean isValidEmail(String email) {
         Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
         Matcher m = p.matcher(email);
-        //boolean matchFound = m.matches();
-        //return matchFound;
         return m.matches();
     }
 
