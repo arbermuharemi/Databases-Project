@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import main.java.fxapp.Main;
+import main.java.model.POI;
 import main.java.model.Type;
 
 import java.io.File;
@@ -40,12 +42,19 @@ public class POIDetailController extends Controller {
     @FXML
     private Spinner endMin;
 
+    public String location;
+
     private ObservableList<Type> typeList = FXCollections.observableArrayList(Type.Mold, Type.Air_Quality);
 
-    @FXML
-    private void initialize() {
-        type.setItems(typeList);
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
+    @FXML
+    private void initialize() throws Exception{
+        this.db = Main.getDb();
+        type.setItems(typeList);
+        System.out.println("Hello");
     }
 
     @FXML

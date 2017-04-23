@@ -8,7 +8,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import jdk.nashorn.internal.ir.IfNode;
 import main.java.controller.Controller;
+import main.java.controller.POIDetailController;
+import main.java.model.DataPoint;
 import main.java.model.DatabaseRef;
+import main.java.model.POI;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,6 +38,24 @@ public class Main extends Application {
 
             Controller controller = loader.getController();
             controller.setMainApp(this);
+
+            window.setTitle("Databases-Project");
+            window.setScene(new Scene(sceneLayout));
+            window.show();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void loadPOIDetail(String location) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("../view/POIDetail.fxml"));
+            AnchorPane sceneLayout = loader.load();
+
+            POIDetailController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setLocation(location);
 
             window.setTitle("Databases-Project");
             window.setScene(new Scene(sceneLayout));

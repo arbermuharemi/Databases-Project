@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
 public class ViewPOIController extends Controller{
 
     @FXML
-    private TableView table;
+    private TableView<POI> table;
 
     @FXML
     private ComboBox<String> locName;
@@ -75,11 +75,12 @@ public class ViewPOIController extends Controller{
     @FXML
     private void initialize() throws Exception {
         this.db = Main.getDb();
-        table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        /*table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                myApp.load(new File("../view/POIDetail.fxml"));
+                System.out.println(newSelection.getLocationName());
+                myApp.loadPOIDetail(new File("../view/POIDetail.fxml"), newSelection.getLocationName());
             }
-        });
+        });*/
 
         db.rs = db.stmt.executeQuery("SELECT LocationName, City, State FROM POI");
         db.rs.beforeFirst();
@@ -303,5 +304,6 @@ public class ViewPOIController extends Controller{
         myApp.load(new File("../view/CityOfficialHome.fxml"));
     }
 
-
+    @FXML
+    public void handleViewDetailPressed() { myApp.loadPOIDetail(table.getSelectionModel().getSelectedItem().getLocationName().toString()); }
 }

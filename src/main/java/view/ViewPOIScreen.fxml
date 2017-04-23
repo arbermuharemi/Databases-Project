@@ -82,10 +82,13 @@
                 <Font name="Gill Sans MT" size="36.0" />
             </font>
         </Label>
-        <BorderPane layoutX="280.0" layoutY="554.0" prefHeight="49.0" prefWidth="106.0">
-         <center>
+        <BorderPane layoutX="203.0" layoutY="561.0" prefHeight="49.0" prefWidth="296.0">
+         <right>
+            <Button mnemonicParsing="false" onAction="#handleViewDetailPressed" prefHeight="39.0" prefWidth="115.0" text="View Detail" BorderPane.alignment="CENTER" />
+         </right>
+         <left>
                 <Button mnemonicParsing="false" onAction="#handleBackPressed" prefHeight="39.0" prefWidth="92.0" text="Back" BorderPane.alignment="CENTER" />
-         </center></BorderPane>
+         </left></BorderPane>
           <ButtonBar layoutX="561.0" layoutY="332.0" prefHeight="69.0" prefWidth="226.0">
               <buttons>
                   <Button mnemonicParsing="false" onAction="#handleApplyFilterPressed" text="Apply Filter" />
