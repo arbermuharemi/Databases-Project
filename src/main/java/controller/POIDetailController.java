@@ -183,11 +183,16 @@ public class POIDetailController extends Controller {
 
     @FXML
     private void handleFlagPressed() throws SQLException{
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        String dateTime = dateFormat.format(timestamp);
+
         db.preparedStatement = db.conn.prepareStatement(
                 "UPDATE POI " +
-                        "SET Flag = '1'" +
+                        "SET Flag = '1', DateFlagged = ? " +
                         "WHERE LocationName = ?");
-        db.preparedStatement.setString(1, location);
+        db.preparedStatement.setString(1, dateTime);
+        db.preparedStatement.setString(2, location);
         db.preparedStatement.executeUpdate();
         flagButton.setDisable(true);
         unflagButton.setDisable(false);
@@ -197,7 +202,7 @@ public class POIDetailController extends Controller {
     private void handleUnFlagPressed() throws SQLException {
         db.preparedStatement = db.conn.prepareStatement(
                 "UPDATE POI " +
-                        "SET Flag = '0'" +
+                        "SET Flag = '0', DateFlagged = NULL " +
                         "WHERE LocationName = ?");
         db.preparedStatement.setString(1, location);
         db.preparedStatement.executeUpdate();
