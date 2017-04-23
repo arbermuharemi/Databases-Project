@@ -112,7 +112,7 @@ public class RegistrationScreenController extends Controller {
                         + "FROM `User` "
                         + "WHERE Username = ? ");
         db.preparedStatement.setString(1, userField.getText());
-        System.out.println(db.preparedStatement);
+        //System.out.println(db.preparedStatement);
         db.rs = db.preparedStatement.executeQuery();
         if (db.rs.first()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -195,7 +195,7 @@ public class RegistrationScreenController extends Controller {
                         + "WHERE State = ?"
                         + "ORDER BY City");
         db.preparedStatement.setString(1, stateBox.getValue());
-        System.out.println(db.preparedStatement);
+        //System.out.println(db.preparedStatement);
         db.rs = db.preparedStatement.executeQuery();
         db.rs.beforeFirst();
         while (db.rs.next()) {

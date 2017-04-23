@@ -278,7 +278,7 @@ public class POIDetailController extends Controller {
             query += "AND DateTime <= '" + dateFormat.format(endTime) + "'";
         }
 
-        System.out.println(query);
+        //System.out.println(query);
         db.rs = db.stmt.executeQuery(query);
         db.rs.beforeFirst();
         data = FXCollections.observableArrayList();

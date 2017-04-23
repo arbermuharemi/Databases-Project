@@ -27,13 +27,13 @@ public class LoginScreenController extends Controller {
 
     @FXML
     private void handleLoginPressed() throws Exception {
-        System.out.println(db);
-        System.out.println(db.preparedStatement);
-        System.out.println(db.conn);
+        //System.out.println(db);
+        //System.out.println(db.preparedStatement);
+        //System.out.println(db.conn);
         db.preparedStatement = db.conn.prepareStatement("SELECT * FROM `User` WHERE Username = ? AND PASSWORD = ?");
         db.preparedStatement.setString(1, userField.getText());
         db.preparedStatement.setString(2, passField.getText());
-        System.out.println(db.preparedStatement);
+        //System.out.println(db.preparedStatement);
         db.rs = db.preparedStatement.executeQuery();
         if (!(db.rs.first())) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

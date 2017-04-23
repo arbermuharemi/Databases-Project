@@ -61,7 +61,7 @@ public class AddLocationController extends Controller {
                         + "WHERE State = ?"
                         + "ORDER BY City");
         db.preparedStatement.setString(1, stateBox.getValue());
-        System.out.println(db.preparedStatement);
+        //System.out.println(db.preparedStatement);
         db.rs = db.preparedStatement.executeQuery();
         db.rs.beforeFirst();
         while (db.rs.next()) {
@@ -106,7 +106,7 @@ public class AddLocationController extends Controller {
                         + "FROM `POI` "
                         + "WHERE LocationName = ? ");
         db.preparedStatement.setString(1, location);
-        System.out.println(db.preparedStatement);
+        //System.out.println(db.preparedStatement);
         db.rs = db.preparedStatement.executeQuery();
         if (db.rs.first()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
