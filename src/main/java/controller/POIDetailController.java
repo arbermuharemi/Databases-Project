@@ -42,7 +42,7 @@ public class POIDetailController extends Controller {
     @FXML
     private Spinner endMin;
 
-    public String location;
+    private String location;
 
     private ObservableList<Type> typeList = FXCollections.observableArrayList(Type.Mold, Type.Air_Quality);
 
@@ -50,12 +50,14 @@ public class POIDetailController extends Controller {
         this.location = location;
     }
 
-    @FXML
-    private void initialize() throws Exception{
+
+    public void initialize() throws Exception {
         this.db = Main.getDb();
         type.setItems(typeList);
         System.out.println("Hello");
     }
+
+
 
     @FXML
     private void handleBackPressed() {myApp.load(new File("../view/ViewPOIScreen.fxml")); }
